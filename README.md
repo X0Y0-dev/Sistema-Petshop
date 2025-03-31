@@ -59,20 +59,20 @@ DELETE      /pets/:id      -> Excluir agendamento
 /petshop-system
 |
 ├── /frontend
-│    ├── index.html
-│    ├── login.html
-│    ├── cadastro.html
-│    ├── style.css
+│   ├── index.html
+│   ├── login.html
+│   ├── cadastro.html
+│   ├── style.css
 |
 ├── /backend
-│    ├── server.js
-│    ├── /routes
-│    ├── /controllers
-│    ├── /models
-│    ├── /middleware
-│    ├── /uploads
-│    ├── .env
-│    ├── package.json
+│   ├── server.js
+│   ├── /routes
+│   ├── /controllers
+│   ├── /models
+│   ├── /middleware
+│   ├── /uploads
+│   ├── .env
+│   ├── package.json
 |
 ├── banco_petshop.sql
 ├── README.md
