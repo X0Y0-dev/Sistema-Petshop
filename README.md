@@ -35,31 +35,47 @@
 <p>&emsp;&emsp;° Observações;</p>
 <p>&emsp;&emsp;° Upload de imagem (obrigatório).</p>
 <p>● CRUD completo dos agendamentos via API:</p>
-&emsp;&emsp;<img src="https://github.com/user-attachments/assets/9aa4317d-bfe0-4f72-96f7-f50376b119b5">
 
+```
+POST        /pets          -> Criar agendamento (com imagem) 
+GET         /pets          -> Listar agendamentos
+PUT         /pets/:id      -> Atualizar agendamento
+DELETE      /pets/:id      -> Excluir agendamento
+```
 
+## Requisitos Funcionais:
+<p>1- O sistema deve permitir o cadastro de novos usuários;</p>
+<p>2- O sistema deve permitir agendar banho com imagem do pet;</p>
+<p>3- O usuário deve poder visualizar, editar e excluir agendamentos.</p>
+
+## Requisitos Não-Funcionais:
+<p>1- As imagens devem ser salvas em uma pasta específica no servidor;</p>
+<p>2- As senhas devem ser criptografadas usando bcrypt;</p>
+<p>3- A autenticação deve utilizar JWT com middleware para rotas privadas.</p>
 
 ## 📂 **Estrutura do Repositório**
 
 ```
-Jogo_Fullstack/
-   Log/                                                       # Pasta principal contendo a documentação sobre o processo de criação do jogo
-   ├── V1                                                     # Primeira versão do jogo
-   ├── V2                                                     # Segunda versão do jogo
-   ├── V3                                                     # Terceira versão do jogo.
-   ├── V4                                                     # Quarta versão do jogo
-   ├── Final/                                                 # Versão final do jogo
-   Recursos/                                                  # Pasta para armazenar imagens utilizadas no projeto
-   │   ├── Audios                                             #Audios utilizados no projeto
-   │   ├── imagens                                            #Imagens utilizadss no projeto
-   │   ├── gifs                                               #GIFs utilizados no projeto
-   ├── Api.js/                                                # Arquivo JavaScript para portar a API
-   ├── Funcoes.js/                                            # Arquivo JavaScript para as funções principais
-   ├── oJogo.js/                                              # Arquivo JavaScript para portar a estrutura do jogo
-   ├── Status.js/                                             # Arquivo JavaScript para os elementos do personagem principal
-   ├── style.css                                             # Arquivos CSS para estilização
-   ├── index.html                                             # Página principal do projeto
-   readme.md                                                  # Documentação principal do projeto
+/petshop-system
+|
+├── /frontend
+│    ├── index.html
+│    ├── login.html
+│    ├── cadastro.html
+│    ├── style.css
+|
+├── /backend
+│    ├── server.js
+│    ├── /routes
+│    ├── /controllers
+│    ├── /models
+│    ├── /middleware
+│    ├── /uploads
+│    ├── .env
+│    ├── package.json
+|
+├── banco_petshop.sql
+├── README.md
 ```
 
 ## 🛠 Instalação e Execução
