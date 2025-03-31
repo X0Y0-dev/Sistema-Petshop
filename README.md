@@ -29,13 +29,14 @@
 
 ### Sistema de agendamento
 <p>● Cadastro de agendamentos com:</p>
-<p>● Deve ser desenvolvido usando HTML5, CSS3 e JavaScript puro (ES6+).</p>
-<p>● O código deve ser bem estruturado e comentado, seguindo boas práticas de programação.</p>
-<p>● O layout deve ser minimamente estilizado para criar uma identidade visual para o jogo.</p>
-<p>● Deve ser compatível com os navegadores modernos (Google Chrome, Mozilla Firefox, Edge).</p>
-<p>● O desempenho deve ser otimizado para carregar rapidamente, sem travamentos.</p>
-<p>● O código deve ser versionado e compartilhado no GitHub.</p>
-<p>● O projeto deve incluir um README.md explicando o funcionamento do jogo e a divisão de tarefas entre a dupla.</p>
+<p>&emsp;&emsp;° Nome do pet;</p>
+<p>&emsp;&emsp;° Raça;</p>
+<p>&emsp;&emsp;° Data e horári;</p>
+<p>&emsp;&emsp;° Observações;</p>
+<p>&emsp;&emsp;° Upload de imagem (obrigatório).</p>
+<p>● CRUD completo dos agendamentos via API:</p>
+&emsp;&emsp;<img src="https://github.com/user-attachments/assets/9aa4317d-bfe0-4f72-96f7-f50376b119b5">
+
 
 
 ## 📂 **Estrutura do Repositório**
