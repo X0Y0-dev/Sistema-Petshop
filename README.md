@@ -20,7 +20,7 @@
 
 <p>O projeto se consiste em desenvolver um sistema web completo para cadastro de usuários, login seguro, e agendamento de banhos em um petshop, com a possibilidade de cadastrar imagens dos pets. O sistema deverá incluir front-end (HTML/CSS) e back-end com Node.js, banco de dados MySQL, e autenticação com JWT.</p>
 
-## Funcionalidades obrigatórias:
+## Funcionalidades obrigatórias
 
 ### Cadastro e login de usuários
 <p>● Registro com e-mail e senha criptografada.</p>
@@ -43,12 +43,12 @@ PUT         /pets/:id      -> Atualizar agendamento
 DELETE      /pets/:id      -> Excluir agendamento
 ```
 
-## Requisitos Funcionais:
+## Requisitos Funcionais
 <p>1- O sistema deve permitir o cadastro de novos usuários;</p>
 <p>2- O sistema deve permitir agendar banho com imagem do pet;</p>
 <p>3- O usuário deve poder visualizar, editar e excluir agendamentos.</p>
 
-## Requisitos Não-Funcionais:
+## Requisitos Não-Funcionais
 <p>1- As imagens devem ser salvas em uma pasta específica no servidor;</p>
 <p>2- As senhas devem ser criptografadas usando bcrypt;</p>
 <p>3- A autenticação deve utilizar JWT com middleware para rotas privadas.</p>
@@ -117,10 +117,10 @@ Todas as extensões foram baixadas diretamente pela aba de extensões do Visual 
 2. HTML CSS Support - ecmel
 3. Live Server - Ritwick Dey
 
+### 💻 Softwares Utilizados
+1. <a href="https://code.visualstudio.com/">VSCode</a> - Microsoft
+2. <a href="https://wampserver.aviatechno.net/?lang=en=">WampServer</a> - Romain Bourdon
+3. <a href="https://www.mysql.com/">MySQL</a> - Oracle Corporation
+4. <a href="http://www.sis4.com/brModelo/download.html">BrModelo</a> - Grupo de Banco de Dados da UFSC
+
 ## 🎓 Referências
-
-Aqui estão as referências usadas no projeto.
-
-1. https://youtu.be/R1S_NhKkvGA?si=1CvxIFBu5EyMA1Ij
-2. https://dreamina.capcut.com
-3. https://opengameart.org/forums/audio
