@@ -58,6 +58,7 @@ DELETE      /pets/:id      -> Excluir agendamento
 ```
 /petshop-system
 |
+├── /Logs
 ├── /frontend
 │   ├── index.html
 │   ├── login.html
