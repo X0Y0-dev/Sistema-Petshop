@@ -60,6 +60,7 @@ DELETE      /pets/:id      -> Excluir agendamento
 |
 ├── /Logs
 │   ├── Log 1.md
+|
 ├── /frontend
 │   ├── index.html
 │   ├── login.html
