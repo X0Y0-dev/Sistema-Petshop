@@ -52,22 +52,22 @@
 
 ```
 Cliente (1,n) TEM (0,n) Pet
-  Cliente (1,n) -> Um pet, para ser um pet, necessariamente precisa ter um dono, porém, o mesmo pet pode ter
-  vários donos
-  Pet (0,n) -> Um cliente não necessariamente precisa ter um pet, assim como pode ter diversos
+    Cliente (1,n) -> Um pet, para ser um pet, necessariamente precisa ter um dono, porém, o mesmo pet pode ter
+    vários donos
+    Pet (0,n) -> Um cliente não necessariamente precisa ter um pet, assim como pode ter diversos
 
 Cliente (0,n) FREQUENTA (0,n) Petshop
-  Cliente (0,n) -> Um petshop pode acabar não tendo clientes, assim como pode ter vários
-  Petshop (0,n) -> Uma pessoa pode não ir a um petshop, assim como pode ir a vários
+    Cliente (0,n) -> Um petshop pode acabar não tendo clientes, assim como pode ter vários
+    Petshop (0,n) -> Uma pessoa pode não ir a um petshop, assim como pode ir a vários
 
 Pet (0,n) TRATAMENTO (0,n) Servico
-  Pet (0,n) -> Um serviço não precisa de um pet para existir, porém, ele pode atender vários pets
-  Servico (0,n) -> Um pet não precisa recorrer a um serviço, assim como pode receber diversos tratamentos
-
+    Pet (0,n) -> Um serviço não precisa de um pet para existir, porém, ele pode atender vários pets
+    Servico (0,n) -> Um pet não precisa recorrer a um serviço, assim como pode receber diversos tratamentos
+  
 Petshop (0,n) TRABALHO (0,n) Servico
-  Petshop (0,n) -> Um serviço pode muito bem ser executado fora de um petshop, assim como pode ser feito em vários
-  petshops
-  Servico (0,n) -> Um petsho não precisa oferecer serviços, mas também pode oferecer vários.
+    Petshop (0,n) -> Um serviço pode muito bem ser executado fora de um petshop, assim como pode ser feito em vários
+    petshops
+    Servico (0,n) -> Um petsho não precisa oferecer serviços, mas também pode oferecer vários.
 ```
 <p align="center"><img src="https://github.com/user-attachments/assets/4ecd18e0-ede8-47a8-8a6c-492244696316"></p>
 
