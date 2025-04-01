@@ -35,7 +35,7 @@
   ° TELEFONE--------------------------------------VARCHAR(20) NOT NULL
   ° ABERTURA--------------------------------------TIME NOT NULL
   ° FECHAMENTO------------------------------------TIME NOT NULL
-  ° DIAS_FUNC-------------------------------------INT(2)
+  ° DIAS_FUNC-------------------------------------INT(2) NOT NULL
   ° DIA_SEMANA------------------------------------VARCHAR(15)
 
 ● Servico:
