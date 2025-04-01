@@ -56,7 +56,7 @@ Cliente (1,n) TEM (0,n) Pet
   vários donos
   Pet (0,n) -> Um cliente não necessariamente precisa ter um pet, assim como pode ter diversos
 
-Cliente (0,n) FREQUENTE (0,n) Petshop
+Cliente (0,n) FREQUENTA (0,n) Petshop
   Cliente (0,n) -> Um petshop pode acabar não tendo clientes, assim como pode ter vários
   Petshop (0,n) -> Uma pessoa pode não ir a um petshop, assim como pode ir a vários
 
