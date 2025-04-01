@@ -54,7 +54,7 @@
 Cliente (1,n) TEM (0,n) Pet
   Cliente (1,n) -> Um pet, para ser um pet, necessariamente precisa ter um dono, porém, o mesmo pet pode ter
   vários donos
-  Pet (0,n) -> ~Um cliente não necessariamente precisa ter um pet, assim como pode ter diversos
+  Pet (0,n) -> Um cliente não necessariamente precisa ter um pet, assim como pode ter diversos
 
 Cliente (0,n) FREQUENTE (0,n) Petshop
   Cliente (0,n) -> Um petshop pode acabar não tendo clientes, assim como pode ter vários
