@@ -31,7 +31,7 @@
 <p>● Cadastro de agendamentos com:</p>
 <p>&emsp;&emsp;° Nome do pet;</p>
 <p>&emsp;&emsp;° Raça;</p>
-<p>&emsp;&emsp;° Data e horári;</p>
+<p>&emsp;&emsp;° Data e horário;</p>
 <p>&emsp;&emsp;° Observações;</p>
 <p>&emsp;&emsp;° Upload de imagem (obrigatório).</p>
 <p>● CRUD completo dos agendamentos via API:</p>
