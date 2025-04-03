@@ -11,6 +11,7 @@
   ° TELEFONE--------------------------------------VARCHAR(20) NOT NULL
   ° CPF-------------------------------------------VARCHAR(11) NOT NULL
   ° EMAIL-----------------------------------------VARCHAR(255)
+  ° SENHA-----------------------------------------VARCHAR(50)
 
 ● Pet:
   ° ID_PET (identificador)------------------------INT PRIMARY KEY AUTO_INCREMENT
