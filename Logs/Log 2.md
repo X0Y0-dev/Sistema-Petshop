@@ -19,7 +19,7 @@ CREATE TABLE cliente(
     cpf VARCHAR(11) NOT NULL,
     email VARCHAR(255)
 );
-SELCET * FROM cliente;
+SELECT * FROM cliente;
 ```
 <p align="center"><img src="https://github.com/user-attachments/assets/5cb5ca4d-fcd7-4846-849b-b62dfaa104ed"></p>
 
