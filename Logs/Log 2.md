@@ -15,13 +15,15 @@ SHOW TABLES;
 CREATE TABLE cliente(
     id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nome_cliente VARCHAR(50) NOT NULL,
-    telefone VARCHAR(50) NOT NULL,
+    sobrenome_cliente VARCHAR(50) NOT NULL,
+    telefone VARCHAR (20) NOT NULL,
     cpf VARCHAR(11) NOT NULL,
-    email VARCHAR(255)
+    email VARCHAR(255),
+    senha VARCHAR(50)
 );
 SELECT * FROM cliente;
 ```
-<p align="center"><img src="https://github.com/user-attachments/assets/5cb5ca4d-fcd7-4846-849b-b62dfaa104ed"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/3c8eea3d-4379-4832-a374-ada0dda70e95"></p>
 
 ```sql
 CREATE TABLE pet(
@@ -30,11 +32,11 @@ CREATE TABLE pet(
     raca VARCHAR(30),
     sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
     peso DECIMAL(5,2),
-    tamanho VARCHAR(10),
+    tamanho VARCHAR(50),
     nome_pet VARCHAR(50) NOT NULL,
     castrado BOOLEAN DEFAULT FALSE
 );
-SELCET * FROM pet;
+SELECT * FROM pet;
 ```
 <p align="center"><img src="https://github.com/user-attachments/assets/0da7249c-a076-489f-9afb-cbc4be77414a"></p>
 
@@ -42,20 +44,20 @@ SELCET * FROM pet;
 CREATE TABLE petshop(
     id_petshop INT PRIMARY KEY AUTO_INCREMENT,
     nome_petshop VARCHAR(50) NOT NULL,
-    logradouro VARCHAR(100) NOT NULL,
-    numer VARCHAR(10) NOT NULL,
+    logradouro VARCHAR(50) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
     complemento VARCHAR(50),
     bairro VARCHAR(30) NOT NULL,
     cep CHAR(8) NOT NULL,
-    cidade VARCHAR(30) NOT NULL,
-    estado CHAR(2) NOT NULL,
+    cidade VARCHAR(20) NOT NULL,
+    estado VARCHAR(2) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
     abertura TIME NOT NULL,
     fechamento TIME NOT NULL,
     dias_func INT(2) NOT NULL,
     dia_semana VARCHAR(15)
 );
-SELCET * FROM petshop;
+SELECT* FROM petshop;
 ```
 <p align="center"><img src="https://github.com/user-attachments/assets/29df254f-e790-46ea-a8b8-8ef4444e38c0"></p>
 
@@ -68,7 +70,7 @@ CREATE TABLE servico(
     observacoes TEXT,
     status VARCHAR(20)
 );
-SELCET * FROM servico;
+SELECT * FROM servico;
 ```
 <p align="center"><img src="https://github.com/user-attachments/assets/a0a8f29d-dbee-424a-9676-e2a034f2ea13"></p>
 
