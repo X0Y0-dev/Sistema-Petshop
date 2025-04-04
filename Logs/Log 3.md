@@ -131,7 +131,7 @@ CREATE TABLE petshop(
     dia_semana VARCHAR(15)
 );
 /*MOSTRAR ITENS DA TABELA PETSHOP*/
-SELECT* FROM petshop;
+SELECT * FROM petshop;
 
 
 /*CRIAÇÃO DA TABELA SERVIÇO*/
