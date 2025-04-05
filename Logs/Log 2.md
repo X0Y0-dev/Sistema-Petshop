@@ -1,4 +1,4 @@
-# Criação da tabela no MySQL
+# Criação do Banco de Dados no MySQL
 
 <p>Para a segunda atualização, utilizei o Modelo Lógico fornecido pelo BrModelo para criar a estruturas de dados no MySQL Workbench.</p>
 <p align="center"><img src="https://github.com/user-attachments/assets/6c92a2fa-708f-4d2b-8e66-ccb28624a9c5"></p>
