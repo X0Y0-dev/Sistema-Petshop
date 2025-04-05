@@ -126,6 +126,6 @@ Todas as extensões foram baixadas diretamente pela aba de extensões do Visual 
 1. <a href="https://code.visualstudio.com/">VSCode</a> - Microsoft
 2. <a href="https://wampserver.aviatechno.net/?lang=en=">WampServer</a> - Romain Bourdon
 3. <a href="https://www.mysql.com/">MySQL</a> - Oracle Corporation
-4. <a href="http://www.sis4.com/brModelo/download.html">BrModelo</a> - Grupo de Banco de Dados da UFSC
+4. <a href="https://www.brmodeloweb.com/lang/pt-br/index.html">BrModelo</a> - Grupo de Banco de Dados da UFSC
 
 ## 🎓 Referências
