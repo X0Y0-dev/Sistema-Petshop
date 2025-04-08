@@ -34,3 +34,4 @@
 <p align= "center"><img src="https://github.com/user-attachments/assets/d1297668-a412-4c73-8069-f2c6beb16705"></p>
 
 <p>Sobre a página de "Agende um horário conosco!", vulgo a página mais importante, pensei em adicionar um sistema de calendário. Primeiramente, aparecerá as opções para o usuário selecionar o mes. Ao selecionar o mês desejado, os dias em que o petshop estará aberto estarão em destaque. Então, a pessoa poderá selecionar o dia desejado. Ao fazer isso, uma tabela com os horários de funcionamento do petshop será exibida, mostrando os horários vagos e ocupados. Em suma, um sistema simples de agendamente que (espero) da para se resolver com uma API de calendário.</p>
+<p>Para acessar o projeto no figma, clique <a href="https://www.figma.com/design/jNAAsgAw0NiPwipfIg0OGR/Untitled?node-id=1-2&t=9dtR8pda2pjGxgTs-1">aqui</a>.</p>
