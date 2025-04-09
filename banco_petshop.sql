@@ -7,7 +7,7 @@ SHOW TABLES;
 
 /*CRIAÇÃO DA TABELA CLIENTE*/
 CREATE TABLE cliente(
-	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nome_cliente VARCHAR(50) NOT NULL,
     sobrenome_cliente VARCHAR(50) NOT NULL,
     telefone VARCHAR (20) NOT NULL,
@@ -23,7 +23,7 @@ DESCRIBE cliente;
 
 /*CRIAÇÃO DA TABELA PET*/
 CREATE TABLE pet(
-	id_pet INT PRIMARY KEY AUTO_INCREMENT,
+    id_pet INT PRIMARY KEY AUTO_INCREMENT,
     especie VARCHAR(50) NOT NULL,
     raca VARCHAR(30),
     sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
@@ -45,10 +45,10 @@ DESCRIBE pet;
 
 /*CRIAÇÃO DA TABELA PETSHOP*/
 CREATE TABLE petshop(
-	id_petshop INT PRIMARY KEY AUTO_INCREMENT,
+    id_petshop INT PRIMARY KEY AUTO_INCREMENT,
     nome_petshop VARCHAR(50) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
-	cep CHAR(8) NOT NULL
+    cep CHAR(8) NOT NULL
 );
 /*MOSTRAR DADOS DA TABELA PETSHOP*/
 SELECT* FROM petshop;
@@ -58,7 +58,7 @@ DESCRIBE petshop;
 
 /*CRIAÇÃO DA TABELA DE ENDEREÇO DO PETSHOP*/
 CREATE TABLE endereco_petshop(
-	id_endereco INT PRIMARY KEY AUTO_INCREMENT,
+    id_endereco INT PRIMARY KEY AUTO_INCREMENT,
     logradouro VARCHAR(50) NOT NULL,
     numero VARCHAR(10) NOT NULL,
     complemento VARCHAR(50),
@@ -79,7 +79,7 @@ DESCRIBE endereco_petshop;
 
 /*CRIAÇÃO DA TABELA DE HORÁRIOS DO PETSHOP*/
 CREATE TABLE horario_petshop(
-	id_horario INT PRIMARY KEY AUTO_INCREMENT,
+    id_horario INT PRIMARY KEY AUTO_INCREMENT,
     dia_semana VARCHAR(15),
     dias_func INT(2) NOT NULL,
     abertura TIME NOT NULL,
@@ -98,7 +98,7 @@ DESCRIBE horario_petshop;
 
 /*CRIAÇÃO DA TABELA SERVIÇO*/
 CREATE TABLE servico(
-	id_servico INT PRIMARY KEY AUTO_INCREMENT,
+    id_servico INT PRIMARY KEY AUTO_INCREMENT,
     tipo_servico VARCHAR(30) NOT NULL,
     data_hora DATETIME NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
@@ -118,7 +118,7 @@ DESCRIBE servico;
 
 /*CRIAÇÃO DA TABELA DE IMAGENS*/
 CREATE TABLE imagens(
-	id_imagem INT PRIMARY KEY AUTO_INCREMENT,
+    id_imagem INT PRIMARY KEY AUTO_INCREMENT,
     nome_arquivo VARCHAR(255) NOT NULL,
     caminho_imagem VARCHAR(255) NOT NULL,
     upload_imagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -131,7 +131,7 @@ DESCRIBE imagens;
 
 /*CRIAÇÃO DA TABELA DE RELAÇÃO ENTRE CLIENTE E PETSHOP*/
 CREATE TABLE cliente_frequenta_petshop(
-	id_cliente INT NOT NULL,
+    id_cliente INT NOT NULL,
     id_petshop INT NOT NULL,
     data_hora_visita DATETIME NOT NULL,
     PRIMARY KEY (id_cliente, id_petshop, data_hora_visita),
@@ -146,7 +146,7 @@ DESCRIBE cliente_frequenta_petshop;
 
 /*CRIAÇÃO DA TABELA DE RELAÇÃO ENTRE PET E SERVIÇO*/
 CREATE TABLE pet_servico(
-	id_pet INT NOT NULL,
+    id_pet INT NOT NULL,
     id_servico INT NOT NULL,
     data_hora_execucao DATETIME NOT NULL,
     observacoes TEXT,
