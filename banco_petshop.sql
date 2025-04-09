@@ -1,0 +1,160 @@
+/*CRIANDO O BANCO DE DADOS*/
+CREATE DATABASE banco_petshop;
+USE banco_petshop;
+/*FUNÇÃO PARA MOSTRAR TODAS AS TABELAS*/
+SHOW TABLES;
+
+
+/*CRIAÇÃO DA TABELA CLIENTE*/
+CREATE TABLE cliente(
+	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome_cliente VARCHAR(50) NOT NULL,
+    sobrenome_cliente VARCHAR(50) NOT NULL,
+    telefone VARCHAR (20) NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
+    email VARCHAR(255),
+    senha VARCHAR(50)
+);
+/*MOSTRAR DADOS DA TABELA CLIENTE*/
+SELECT * FROM cliente;
+/*MOSTRAR A ESTRUTURA DA TABELA CLIENTE*/
+DESCRIBE cliente;
+
+
+/*CRIAÇÃO DA TABELA PET*/
+CREATE TABLE pet(
+	id_pet INT PRIMARY KEY AUTO_INCREMENT,
+    especie VARCHAR(50) NOT NULL,
+    raca VARCHAR(30),
+    sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
+    peso DECIMAL(5,2),
+    tamanho VARCHAR(50),
+    nome_pet VARCHAR(50) NOT NULL,
+    castrado BOOLEAN DEFAULT FALSE
+);
+/*CRIAÇÃO DA COLUNA PARA GUARDAR PRIMARY KEY DO CLIENTE*/
+ALTER TABLE pet ADD COLUMN id_cliente INT NOT NULL;
+/*INSERINDO PRIMARY KEY DO CLIENTE NA TABELA*/
+ALTER TABLE pet ADD CONSTRAINT fk_pet_cliente
+FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente);
+/*MOSTRAR DADOS DA TABELA PET*/
+SELECT * FROM pet;
+/*MOSTRAR A ESTRUTURA DA TABELA PET*/
+DESCRIBE pet;
+
+
+/*CRIAÇÃO DA TABELA PETSHOP*/
+CREATE TABLE petshop(
+	id_petshop INT PRIMARY KEY AUTO_INCREMENT,
+    nome_petshop VARCHAR(50) NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+	cep CHAR(8) NOT NULL
+);
+/*MOSTRAR DADOS DA TABELA PETSHOP*/
+SELECT* FROM petshop;
+/*MOSTRAR A ESTRUTURA DA TABELA PETSHOP*/
+DESCRIBE petshop;
+
+
+/*CRIAÇÃO DA TABELA DE ENDEREÇO DO PETSHOP*/
+CREATE TABLE endereco_petshop(
+	id_endereco INT PRIMARY KEY AUTO_INCREMENT,
+    logradouro VARCHAR(50) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
+    complemento VARCHAR(50),
+    bairro VARCHAR(20) NOT NULL,
+    cidade VARCHAR(20) NOT NULL,
+    estado VARCHAR(2) NOT NULL
+);
+/*CRIAÇÃO DA COLUNA PARA GUARDAR PRIMARY KEY DE PETSHOP*/
+ALTER TABLE endereco_petshop ADD COLUMN id_petshop INT;
+/*INSERINDO PRIMARY KEY DE PETSHOP DENTRO DA TABELA*/
+ALTER TABLE endereco_petshop ADD CONSTRAINT fk_endereco_petshop_petshop
+FOREIGN KEY (id_petshop) REFERENCES petshop(id_petshop);
+/*MOSTRAR DADOS DENTRO DA TABELA DE ENDEREÇO DO PETSHOP*/
+SELECT * FROM endereco_petshop;
+/*MOSTRAR A ESTRUTURA DA TABELA DE ENDEREÇO DO PETSHOP*/
+DESCRIBE endereco_petshop;
+
+
+/*CRIAÇÃO DA TABELA DE HORÁRIOS DO PETSHOP*/
+CREATE TABLE horario_petshop(
+	id_horario INT PRIMARY KEY AUTO_INCREMENT,
+    dia_semana VARCHAR(15),
+    dias_func INT(2) NOT NULL,
+    abertura TIME NOT NULL,
+    fechamento TIME NOT NULL
+);
+/*CRIAÇÃO DA COLUNA PARA GUARDAR PRIMARY KEY DE PETSHOP*/
+ALTER TABLE horario_petshop ADD COLUMN id_petshop INT;
+/*INSERINDO PRIMARY KEY DE PETSHOP DENTRO DA TABELA*/
+ALTER TABLE horario_petshop ADD CONSTRAINT fk_horario_petshop_petshop
+FOREIGN KEY (id_petshop) REFERENCES petshop(id_petshop);
+/*MOSTRAR DADOS DENTRO DA TABELA DE HORÁRIO DO PETSHOP*/
+SELECT * FROM horario_petshop;
+/*MOSTRAR A ESTRUTURA DA TABELA DE HORÁRIO DO PETSHOP*/
+DESCRIBE horario_petshop;
+
+
+/*CRIAÇÃO DA TABELA SERVIÇO*/
+CREATE TABLE servico(
+	id_servico INT PRIMARY KEY AUTO_INCREMENT,
+    tipo_servico VARCHAR(30) NOT NULL,
+    data_hora DATETIME NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    observacoes TEXT,
+    status VARCHAR(20)
+);
+/*CRIAÇÃO DA COLUNA PARA GUARDAR PRIMARY KEY DE PETSHOP*/
+ALTER TABLE servico ADD COLUMN id_petshop INT;
+/*INSERINDO PRIMARY KEY DE PETSHOP DENTRO DA TABELA*/
+ALTER TABLE servico ADD CONSTRAINT fk_servico_petshop
+FOREIGN KEY (id_petshop) REFERENCES petshop(id_petshop);
+/*MOSTRA DADOS DA TABELA SERVIÇO*/
+SELECT * FROM servico;
+/*MOSTRAR A ESTRUTURA DA TABELA SERVIÇO*/
+DESCRIBE servico;
+
+
+/*CRIAÇÃO DA TABELA DE IMAGENS*/
+CREATE TABLE imagens(
+	id_imagem INT PRIMARY KEY AUTO_INCREMENT,
+    nome_arquivo VARCHAR(255) NOT NULL,
+    caminho_imagem VARCHAR(255) NOT NULL,
+    upload_imagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+/*MOSTRA DADOS DA TABELA IMAGENS*/
+SELECT * FROM imagens;
+/*MOSTRAR A ESTRUTURA DA TABELA IMAGENS*/
+DESCRIBE imagens;
+
+
+/*CRIAÇÃO DA TABELA DE RELAÇÃO ENTRE CLIENTE E PETSHOP*/
+CREATE TABLE cliente_frequenta_petshop(
+	id_cliente INT NOT NULL,
+    id_petshop INT NOT NULL,
+    data_hora_visita DATETIME NOT NULL,
+    PRIMARY KEY (id_cliente, id_petshop, data_hora_visita),
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
+    FOREIGN KEY (id_petshop) REFERENCES petshop(id_petshop)
+);
+/*MOSTRAR DADOS DENTRO TABELA DE RELAÇÃO ENTRE CLIENTE E PETSHOP*/
+SELECT * FROM cliente_frequenta_petshop;
+/*MOSTRAR A ESTRUTURA DA TABELA DE RELAÇÃO ENTRE CLIENTE E PETSHOP*/
+DESCRIBE cliente_frequenta_petshop;
+
+
+/*CRIAÇÃO DA TABELA DE RELAÇÃO ENTRE PET E SERVIÇO*/
+CREATE TABLE pet_servico(
+	id_pet INT NOT NULL,
+    id_servico INT NOT NULL,
+    data_hora_execucao DATETIME NOT NULL,
+    observacoes TEXT,
+    PRIMARY KEY (id_pet, id_servico, data_hora_execucao),
+    FOREIGN KEY (id_pet) REFERENCES pet(id_pet),
+    FOREIGN KEY (id_servico) REFERENCES servico(id_servico)
+);
+/*MOSTRAR DADOS DENTRO DA TABELA DE RELAÇÃO ENTRE PET E SERVIÇO*/
+SELECT * FROM pet_servico;
+/*MOSTRAR A ESTRUTURA DA TABELA DE RELAÇÃO ENTRE PET E SERVIÇO*/
+DESCRIBE pet_servico;
