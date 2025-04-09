@@ -101,7 +101,7 @@ Antes de começar, certifique-se de ter instalado:
    - Clique em "Open with GitHub Desktop".
    - Faça login no GitHub Desktop.
    - Clique em "File", "Clone Repository" e, depois, em "URL".
-   - Insira a seguinte URL: https://github.com/X0Y0-dev/Sistema-de-Agendamento-de-Banhos-em-Pet-Shop.git
+   - Insira a seguinte URL: https://github.com/X0Y0-dev/Sistema-Petshop.git
    - Clique em "Clone".
    ```
 2. **Abra o VSCode**
