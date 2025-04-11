@@ -12,7 +12,7 @@
 ██    ██ ███████ ███████ ███████     ██
 
 */
-body
+body 
 {
     margin: 0;
     padding: 0;
@@ -678,8 +678,7 @@ body
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
     <title>Teste de Fullstack</title>
     <style>
@@ -720,7 +719,7 @@ body
                 nulla velit numquam deleniti.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas praesentium,
                 non quia omnis cum molestias similique ex sequi temporibus autem labore fugit quasi corrupti ut natus
                 nulla velit numquam deleniti.</div>
-            <img src="./imagens/best friends.jpg" alt="" id="saiba-mais-imagem">
+            <img src=".././imagens/best friends.jpg" alt="" id="saiba-mais-imagem">
         </div>
         <div class="container-botao">
             <button class="botao-primario conteudo">Saiba mais!</button>
@@ -733,33 +732,33 @@ body
         <h2 class="titulo">PETS PARA ADOÇÃO!</h2>
         <div class="carrossel-container">
             <div class="adote-conteudo carrossel">
-                <img src="./imagens/A HTML.png" alt="Pet 1" class="carrossel-img">
-                <img src="./imagens/au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au.jpg"
+                <img src=".././imagens/A HTML.png" alt="Pet 1" class="carrossel-img">
+                <img src=".././imagens/au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au.jpg"
                     alt="Pet 2" class="carrossel-img">
-                <img src="./imagens/dua personalidade.jpg" alt="Pet 3" class="carrossel-img">
-                <img src="./imagens/quatros personalidades.jpg" alt="Pet 4" class="carrossel-img">
-                <img src="./imagens/Queen.jpg" alt="Pet 5" class="carrossel-img">
-                <img src="./imagens/best friends.jpg" alt="Pet 6" class="carrossel-img">
-                <img src="./imagens/pinga fds.png" alt="Pet 7" class="carrossel-img">
-                <img src="./imagens/boy kisser.jpg" alt="Pet 8" class="carrossel-img">
-                <img src="./imagens/meta de relacionamento.jpg" alt="Pet 9" class="carrossel-img">
-                <img src="./imagens/mitinho.jpg" alt="Pet 10" class="carrossel-img">
-                <img src="./imagens/monark.webp" alt="Pet 11" class="carrossel-img">
-                <img src="./imagens/sonic me diga.jpg" alt="Pet 12" class="carrossel-img">
+                <img src=".././imagens/dua personalidade.jpg" alt="Pet 3" class="carrossel-img">
+                <img src=".././imagens/quatros personalidades.jpg" alt="Pet 4" class="carrossel-img">
+                <img src=".././imagens/Queen.jpg" alt="Pet 5" class="carrossel-img">
+                <img src=".././imagens/best friends.jpg" alt="Pet 6" class="carrossel-img">
+                <img src=".././imagens/pinga fds.png" alt="Pet 7" class="carrossel-img">
+                <img src=".././imagens/boy kisser.jpg" alt="Pet 8" class="carrossel-img">
+                <img src=".././imagens/meta de relacionamento.jpg" alt="Pet 9" class="carrossel-img">
+                <img src=".././imagens/mitinho.jpg" alt="Pet 10" class="carrossel-img">
+                <img src=".././imagens/monark.webp" alt="Pet 11" class="carrossel-img">
+                <img src=".././imagens/sonic me diga.jpg" alt="Pet 12" class="carrossel-img">
                 <!-- Duplicando as imagens para efeito contínuo -->
-                <img src="./imagens/A HTML.png" alt="Pet 1" class="carrossel-img">
-                <img src="./imagens/au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au.jpg"
+                <img src=".././imagens/A HTML.png" alt="Pet 1" class="carrossel-img">
+                <img src=".././imagens/au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au au.jpg"
                     alt="Pet 2" class="carrossel-img">
-                <img src="./imagens/dua personalidade.jpg" alt="Pet 3" class="carrossel-img">
-                <img src="./imagens/quatros personalidades.jpg" alt="Pet 4" class="carrossel-img">
-                <img src="./imagens/Queen.jpg" alt="Pet 5" class="carrossel-img">
-                <img src="./imagens/best friends.jpg" alt="Pet 6" class="carrossel-img">
-                <img src="./imagens/pinga fds.png" alt="Pet 7" class="carrossel-img">
-                <img src="./imagens/boy kisser.jpg" alt="Pet 8" class="carrossel-img">
-                <img src="./imagens/meta de relacionamento.jpg" alt="Pet 9" class="carrossel-img">
-                <img src="./imagens/mitinho.jpg" alt="Pet 10" class="carrossel-img">
-                <img src="./imagens/monark.webp" alt="Pet 11" class="carrossel-img">
-                <img src="./imagens/sonic me diga.jpg" alt="Pet 12" class="carrossel-img">
+                <img src=".././imagens/dua personalidade.jpg" alt="Pet 3" class="carrossel-img">
+                <img src=".././imagens/quatros personalidades.jpg" alt="Pet 4" class="carrossel-img">
+                <img src=".././imagens/Queen.jpg" alt="Pet 5" class="carrossel-img">
+                <img src=".././imagens/best friends.jpg" alt="Pet 6" class="carrossel-img">
+                <img src=".././imagens/pinga fds.png" alt="Pet 7" class="carrossel-img">
+                <img src=".././imagens/boy kisser.jpg" alt="Pet 8" class="carrossel-img">
+                <img src=".././imagens/meta de relacionamento.jpg" alt="Pet 9" class="carrossel-img">
+                <img src=".././imagens/mitinho.jpg" alt="Pet 10" class="carrossel-img">
+                <img src=".././imagens/monark.webp" alt="Pet 11" class="carrossel-img">
+                <img src=".././imagens/sonic me diga.jpg" alt="Pet 12" class="carrossel-img">
             </div>
         </div>
         <div class="container-botao">
@@ -771,10 +770,10 @@ body
     <div class="agende-horario">
         <h2 class="titulo">AGENDE UM HORÁRIO!</h2>
         <div class="agende-horario-conteudo">
-            <img src="./imagens/best friends.jpg" alt="" class="agende-img">
-            <img src="./imagens/dua personalidade.jpg" alt="" class="agende-img">
-            <img src="./imagens/sonic me diga.jpg" alt="" class="agende-img">
-            <img src="./imagens/Queen.jpg" alt="" class="agende-img">
+            <img src=".././imagens/best friends.jpg" alt="" class="agende-img">
+            <img src=".././imagens/dua personalidade.jpg" alt="" class="agende-img">
+            <img src=".././imagens/sonic me diga.jpg" alt="" class="agende-img">
+            <img src=".././imagens/Queen.jpg" alt="" class="agende-img">
             <div class="agendar-horario-descricao">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
                 obcaecati error ad debitis, accusamus numquam quod tenetur doloremque, quasi facere aut deleniti dolor
                 veritatis nihil, quis quos nostrum voluptatum optio! Lorem ipsum dolor sit amet, consectetur adipisicing
