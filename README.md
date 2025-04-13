@@ -63,13 +63,13 @@ DELETE      /pets/:id      -> Excluir agendamento
 │   ├── Log 2.md
 │   ├── Log 3.md
 │   ├── Log 4.md
-│   ├── Log 5.md
+│   └── Log 5.md
 |
 ├── /frontend
 │   ├── index.html
 │   ├── login.html
 │   ├── cadastro.html
-│   ├── style.css
+│   └── style.css
 |
 ├── /backend
 │   ├── server.js
@@ -79,10 +79,17 @@ DELETE      /pets/:id      -> Excluir agendamento
 │   ├── /middleware
 │   ├── /uploads
 │   ├── .env
-│   ├── package.json
+│   └── package.json
+|
+├── /imagens
+│   ├── temp.png
+│   ├── temp.png
+│   ├── temp.png
+│   ├── temp.png
+│   ├── temp.png
 |
 ├── banco_petshop.sql
-├── README.md
+└── README.md
 ```
 
 ## 🛠 Instalação e Execução
