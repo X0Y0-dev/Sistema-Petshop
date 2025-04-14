@@ -57,37 +57,47 @@ DELETE      /pets/:id      -> Excluir agendamento
 
 ```
 /petshop-system
-|
+│
 ├── /Logs
 │   ├── Log 1.md
 │   ├── Log 2.md
 │   ├── Log 3.md
 │   ├── Log 4.md
 │   └── Log 5.md
-|
+│
 ├── /frontend
 │   ├── index.html
 │   ├── login.html
 │   ├── cadastro.html
+│   ├── agendamentos.html
 │   └── style.css
-|
+│
 ├── /backend
-│   ├── server.js
+│   ├── /node_modules
 │   ├── /routes
+│   │   └── authRoutes.js
+│   │
 │   ├── /controllers
+│   │   └── auth.js
+│   │
 │   ├── /models
 │   ├── /middleware
+│   │   └── uploadConfig.js
+│   │
 │   ├── /uploads
+│   ├── server.js
+│   ├── db.js
 │   ├── .env
-│   └── package.json
-|
-├── /imagens
+│   ├── package.json
+│   └── package-lock.json
+│
+├── /images
 │   ├── temp.png
 │   ├── temp.png
 │   ├── temp.png
 │   ├── temp.png
-│   ├── temp.png
-|
+│   └── temp.png
+│
 ├── banco_petshop.sql
 └── README.md
 ```
