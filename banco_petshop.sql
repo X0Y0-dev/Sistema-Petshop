@@ -11,7 +11,7 @@ CREATE TABLE cliente(
     nome_cliente VARCHAR(50) NOT NULL,
     sobrenome_cliente VARCHAR(50) NOT NULL,
     telefone VARCHAR (20) NOT NULL,
-    cpf VARCHAR(11) NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
     email VARCHAR(255),
     senha VARCHAR(50)
 );

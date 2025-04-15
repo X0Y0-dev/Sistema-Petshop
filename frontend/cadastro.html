@@ -9,17 +9,20 @@
 
 <body>
     <h1>Cadastro</h1>
-    <input type="text" id="nome" placeholder="Nome">
+    <input type="text" id="nome_cliente" placeholder="Nome">
+    <input type="text" id="sobrenome_cliente" placeholder="Sobrenome">
+    <input type="text" id="telefone" placeholder="Telefone">
+    <input type="text" id="cpf" placeholder="CPF">
     <input type="text" id="email" placeholder="E-mail">
     <input type="text" id="senha" placeholder="Senha">
 
-    <button id="addButton" onclick="createOrUpdateItem()">Adicionar</button>
+    <button id="addButton" onclick="criarEatualizarCliente()">Adicionar</button>
     <button onclick="window.location.href='index.html'">Voltar</button>
 
-    <ul id="itemsList"></ul>
+    <ul id="listaClientes"></ul>
 
     <span>Já tem uma conta? Faça <a href="Login.html">Login</a></span>
-    <script src="script.js"></script>
+    <script src="../backend/script.js"></script>
 </body>
 
 </html>

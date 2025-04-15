@@ -6,16 +6,29 @@ const router = express.Router()
 // CREATE
 router.post("/cliente", async (req, res) => {
     try {
-        const { nome, email, senha } = req.body
+        const { nome_cliente, sobrenome_cliente, telefone, cpf, email, senha } = req.body;
+        
         const [result] = await db.execute(
-            "INSERT INTO cliente(nome, email, senha) VALUES (?, ?, ?)",
-            [nome, email, senha]
-        )
-        res.json({ id: result.insertId, nome, email, senha })
+            "INSERT INTO cliente(nome_cliente, sobrenome_cliente, telefone, cpf, email, senha) VALUES (?, ?, ?, ?, ?, ?)",
+            [nome_cliente, sobrenome_cliente, telefone, cpf, email, senha]
+        );
+        
+        res.json({ 
+            id: result.insertId, 
+            nome_cliente, 
+            sobrenome_cliente, 
+            telefone, 
+            cpf, 
+            email 
+        });
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        console.error("Erro detalhado:", error);
+        res.status(500).json({ 
+            error: error.message,
+            stack: error.stack
+        });
     }
-})
+});
 
 // READ
 router.get("/cliente", async (req, res) => {
@@ -47,23 +60,20 @@ router.post("/cliente/login", async (req, res) => {
 // UPDATE
 router.put("/cliente/:id", async (req, res) => {
     try {
-        const { id } = req.params
-        const { nome, email, senha } = req.body
-
-        if (!nome || !email || !senha) {
-            return res.status(400).json({ error: "Todos os campos são obrigatórios" })
-        }
+        const { id } = req.params;
+        const { nome_cliente, sobrenome_cliente, telefone, cpf, email, senha } = req.body;
 
         const [result] = await db.execute(
-            "UPDATE cliente SET nome = ?, email = ?, senha = ? WHERE id = ?",
-            [nome, email, senha, id]
-        )
-        res.status(200).json({ id, nome, email, senha })
+            "UPDATE cliente SET nome_cliente = ?, sobrenome_cliente = ?, telefone = ?, cpf = ?, email = ?, senha = ? WHERE id_cliente = ?",
+            [nome_cliente, sobrenome_cliente, telefone, cpf, email, senha, id]
+        );
+        
+        res.status(200).json({ id, nome_cliente, sobrenome_cliente, telefone, cpf, email });
     } catch (error) {
-        console.error("Database error:", error)
-        res.status(500).json({ error: "Erro ao atualizar cliente: " + error.message })
+        console.error("Database error:", error);
+        res.status(500).json({ error: "Erro ao atualizar cliente: " + error.message });
     }
-})
+});
 
 // DELETE
 router.delete("/cliente/:id", async (req, res) => {

@@ -15,7 +15,7 @@ async function getCliente() {
 
 async function fetchCliente() {
     try {
-        const list = document.getElementById("clienteList");
+        const list = document.getElementById("listaClientes");
         
         // Se não estiver na página que tem a lista, simplesmente retorna
         if (!list) return;
@@ -30,8 +30,8 @@ async function fetchCliente() {
             const li = document.createElement("li");
             li.id = `cliente-${cliente.id}`;
             li.innerHTML = `
-                <span>${escapeHtml(cliente.nome)} - ${escapeHtml(cliente.email)} - ${escapeHtml(cliente.senha)}</span>
-                <button onclick="editCliente('${cliente.id}', '${escapeHtml(cliente.nome)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
+                <span>${escapeHtml(cliente.nome_cliente)} - ${escapeHtml(cliente.sobrenome_cliente)} - ${escapeHtml(cliente.telefone)} - ${escapeHtml(cliente.cpf)} - ${escapeHtml(cliente.email)} - ${escapeHtml(cliente.senha)}</span>
+                <button onclick="editCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
                 <button onclick="deleteCliente('${cliente.id}')">Excluir</button>
             `;
             list.appendChild(li);
@@ -53,12 +53,14 @@ function emailValido(email) {
 }
 
 async function criarEatualizarCliente() {
-    const nome = document.getElementById("nome")?.value;
+    const nome_cliente = document.getElementById("nome_cliente")?.value;
+    const sobrenome_cliente = document.getElementById("sobrenome_cliente")?.value;
+    const telefone = document.getElementById("telefone")?.value;
+    const cpf = document.getElementById("cpf")?.value;
     const email = document.getElementById("email")?.value;
     const senha = document.getElementById("senha")?.value;
-
     // Verifica se estamos na página de cadastro
-    if (nome === undefined || email === undefined || senha === undefined) return; {
+    if (nome_cliente === undefined || sobrenome_cliente === undefined || telefone === undefined || cpf === undefined || email === undefined || senha === undefined) return; {
 
         // Verificação de e-mail duplicado (só para criação, não para edição)
         if (!editingId) {
@@ -70,12 +72,27 @@ async function criarEatualizarCliente() {
         }
 
         // --- Validações ANTES da requisição ---
-        if (!nome || !email || !senha) {
+        if (!nome_cliente || !sobrenome_cliente || !telefone || !cpf || !email || !senha) {
             return alert("Por favor, preencha todos os campos solicitados.");
         }
 
-        if (nome.length < 3 || nome.length > 50) {
-            alert("O nome de usuário deve ter entre 3 a 50 caracteres.");
+        if (nome_cliente.length < 3 || nome_cliente.length > 50) {
+            alert("O nome_cliente de usuário deve ter entre 3 a 50 caracteres.");
+            return;
+        }
+
+        if (sobrenome_cliente.length < 3 || sobrenome_cliente.length > 50) {
+            alert("O sobrenome_cliente de usuário deve ter entre 3 a 50 caracteres.");
+            return;
+        }
+
+        if (telefone.length < 17) {
+            alert("O telefone deve ser feito no seguinte modelo: +99 (99) 99999-9999.");
+            return;
+        }
+
+        if (cpf.length !== 14) {
+            alert("O CPF deve ser feito no seguinte modelo: 999.999.999-99.");
             return;
         }
 
@@ -96,34 +113,29 @@ async function criarEatualizarCliente() {
 
         // --- Requisição à API ---
         try {
-            if (editingId) {
-                await fetch(`${API_URL}/${editingId}`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ nome, email, senha })
-                });
-            } else {
-                await fetch(API_URL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ nome, email, senha })
-                });
-                alert("Conta criada com sucesso!");
-                window.location.href = "index.html"
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    nome_cliente, 
+                    sobrenome_cliente, 
+                    telefone, 
+                    cpf, 
+                    email, 
+                    senha 
+                })
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Falha ao criar cliente");
             }
-
-            // Limpa campos após sucesso
-            document.getElementById("nome").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("senha").value = "";
-            document.getElementById("addButton").innerText = "Adicionar";
-            editingId = null;
-
-            // Atualiza a lista
-            await fetchCliente();
+            
+            alert("Conta criada com sucesso!");
+            window.location.href = "index.html";
         } catch (error) {
-            console.error("Erro ao salvar cliente:", error);
-            alert("Falha ao salvar. Tente novamente.");
+            console.error("Erro detalhado:", error);
+            alert(error.message);
         }
     }
 }
@@ -139,8 +151,11 @@ async function deletarCliente(id) {
     }
 }
 
-function editarCliente(id, nome, email, senha) {
-    document.getElementById("nome").value = nome
+function editarCliente(id, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha) {
+    document.getElementById("nome_cliente").value = nome_cliente
+    document.getElementById("sobrenome_cliente").value = sobrenome_cliente
+    document.getElementById("telefone").value = telefone
+    document.getElementById("cpf").value = cpf
     document.getElementById("email").value = email
     document.getElementById("senha").value = senha
     document.getElementById("addButton").innerText = "Atualizar"
