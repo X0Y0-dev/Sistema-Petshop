@@ -16,33 +16,34 @@ async function getCliente() {
 async function fetchCliente() {
     try {
         const list = document.getElementById("listaClientes");
-        
-        // Se não estiver na página que tem a lista, simplesmente retorna
         if (!list) return;
 
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
 
-        // Renderiza a lista no DOM apenas se o elemento existir
         list.innerHTML = "";
         data.forEach(cliente => {
             const li = document.createElement("li");
-            li.id = `cliente-${cliente.id}`;
+            li.id = `cliente-${cliente.id_cliente}`;
             li.innerHTML = `
-                <span>${escapeHtml(cliente.nome_cliente)} - ${escapeHtml(cliente.sobrenome_cliente)} - ${escapeHtml(cliente.telefone)} - ${escapeHtml(cliente.cpf)} - ${escapeHtml(cliente.email)} - ${escapeHtml(cliente.senha)}</span>
-                <button onclick="editCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
-                <button onclick="deleteCliente('${cliente.id}')">Excluir</button>
+                <div>
+                    <span>${escapeHtml(cliente.nome_cliente)} ${escapeHtml(cliente.sobrenome_cliente)}</span>
+                    <span>Tel: ${escapeHtml(cliente.telefone)}</span>
+                    <span>CPF: ${escapeHtml(cliente.cpf)}</span>
+                    <span>Email: ${escapeHtml(cliente.email)}</span>
+                </div>
+                <div>
+                    <button onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
+                    <button onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
+                </div>
             `;
             list.appendChild(li);
         });
-
-        return data;
     } catch (error) {
-        console.error("Erro ao buscar itens:", error);
-        // Não mostra alerta se não for a página de cadastro
-        if (document.getElementById("clienteList")) {
-            alert("Falha ao carregar itens.");
+        console.error("Erro ao buscar clientes:", error);
+        if (document.getElementById("listaClientes")) {
+            alert("Falha ao carregar clientes.");
         }
     }
 }
@@ -50,6 +51,33 @@ async function fetchCliente() {
 function emailValido(email) {
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regexEmail.test(email);
+}
+
+function validarCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g, ''); // remove pontos e traço
+
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
+        return false;
+    }
+
+    // Validar 1º dígito
+    let soma = 0;
+    for (let i = 0; i < 9; i++) {
+        soma += parseInt(cpf[i]) * (10 - i);
+    }
+    let dig1 = 11 - (soma % 11);
+    if (dig1 >= 10) dig1 = 0;
+
+    // Validar 2º dígito
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+        soma += parseInt(cpf[i]) * (11 - i);
+    }
+    let dig2 = 11 - (soma % 11);
+    if (dig2 >= 10) dig2 = 0;
+
+    // Verifica se os dígitos batem
+    return cpf[9] == dig1 && cpf[10] == dig2;
 }
 
 async function criarEatualizarCliente() {
@@ -77,27 +105,27 @@ async function criarEatualizarCliente() {
         }
 
         if (nome_cliente.length < 3 || nome_cliente.length > 50) {
-            alert("O nome_cliente de usuário deve ter entre 3 a 50 caracteres.");
+            alert("O nome de usuário deve ter entre 3 a 50 caracteres.");
             return;
         }
 
         if (sobrenome_cliente.length < 3 || sobrenome_cliente.length > 50) {
-            alert("O sobrenome_cliente de usuário deve ter entre 3 a 50 caracteres.");
+            alert("O sobrenome de usuário deve ter entre 3 a 50 caracteres.");
             return;
         }
 
         if (telefone.length < 17) {
-            alert("O telefone deve ser feito no seguinte modelo: +99 (99) 99999-9999.");
+            alert("Telefone inválido. O telefone deve ser feito no seguinte modelo: +99 (99) 99999-9999.");
             return;
         }
 
-        if (cpf.length !== 14) {
-            alert("O CPF deve ser feito no seguinte modelo: 999.999.999-99.");
+        if (!validarCPF(cpf)) {
+            alert("CPF inválido. O CPF deve ser feito no seguinte modelo: 999.999.999-99.");
             return;
         }
 
         if (email.length < 8 || email.length > 100) {
-            alert("O e-mail deve ter entre 8 e 100 caracteres.");
+            alert("E-mail inválido. O e-mail deve ter entre 8 e 100 caracteres.");
             return;
         }
 
@@ -107,7 +135,7 @@ async function criarEatualizarCliente() {
         }
 
         if (senha.length < 8 || senha.length > 50 || !senha.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/)) {
-            alert("A senha deve ter 8 a 50 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
+            alert("Senha inválida. A senha deve ter 8 a 50 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
             return;
         }
 
@@ -140,18 +168,31 @@ async function criarEatualizarCliente() {
     }
 }
 async function deletarCliente(id) {
-    if (!confirm("Tem certeza que deseja excluir este cliente?")) return;
+    if (!id) {
+        console.error("ID não fornecido para exclusão.");
+        return;
+    }
+    
+    if (!confirm("Tem certeza que deseja excluir a conta?")) return;
+    
     try {
-        const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        if (!res.ok) throw new Error("Falha ao excluir");
-        await fetchCliente();
+        const res = await fetch(`${API_URL}/${id}`, {  // Corrigido: usando o parâmetro 'id'
+            method: "DELETE" 
+        });
+        
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || "Falha ao excluir");
+        }
+        alert("Conta excluida com sucesso!");
+        await fetchCliente();  // Corrigido: chamando fetchCliente() em vez de fetchItems()
     } catch (error) {
         console.error("Erro ao excluir:", error);
-        alert("Não foi possível excluir.");
+        alert(`Não foi possível excluir: ${error.message}`);
     }
 }
 
-function editarCliente(id, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha) {
+function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha) {
     document.getElementById("nome_cliente").value = nome_cliente
     document.getElementById("sobrenome_cliente").value = sobrenome_cliente
     document.getElementById("telefone").value = telefone
@@ -159,7 +200,7 @@ function editarCliente(id, nome_cliente, sobrenome_cliente, telefone, cpf, email
     document.getElementById("email").value = email
     document.getElementById("senha").value = senha
     document.getElementById("addButton").innerText = "Atualizar"
-    editingId = id
+    editingId = id_cliente
 }
 
 async function login() {

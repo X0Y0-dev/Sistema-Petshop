@@ -14,7 +14,7 @@ router.post("/cliente", async (req, res) => {
         );
         
         res.json({ 
-            id: result.insertId, 
+            id_cliente: result.insertId, 
             nome_cliente, 
             sobrenome_cliente, 
             telefone, 
@@ -58,17 +58,17 @@ router.post("/cliente/login", async (req, res) => {
 })
 
 // UPDATE
-router.put("/cliente/:id", async (req, res) => {
+router.put("/cliente/:id_cliente", async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id_cliente } = req.params;
         const { nome_cliente, sobrenome_cliente, telefone, cpf, email, senha } = req.body;
 
         const [result] = await db.execute(
             "UPDATE cliente SET nome_cliente = ?, sobrenome_cliente = ?, telefone = ?, cpf = ?, email = ?, senha = ? WHERE id_cliente = ?",
-            [nome_cliente, sobrenome_cliente, telefone, cpf, email, senha, id]
+            [nome_cliente, sobrenome_cliente, telefone, cpf, email, senha, id_cliente]
         );
         
-        res.status(200).json({ id, nome_cliente, sobrenome_cliente, telefone, cpf, email });
+        res.status(200).json({ id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email });
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).json({ error: "Erro ao atualizar cliente: " + error.message });
@@ -76,14 +76,14 @@ router.put("/cliente/:id", async (req, res) => {
 });
 
 // DELETE
-router.delete("/cliente/:id", async (req, res) => {
+router.delete("/cliente/:id_cliente", async (req, res) => {
     try {
-        const { id } = req.params
-        await db.execute("DELETE FROM cliente WHERE id=?", [id])
-        res.json({ message: "Cliente excluído com sucesso!" })
+        const { id_cliente } = req.params;
+        await db.execute("DELETE FROM cliente WHERE id_cliente=?", [id_cliente]);
+        res.json({ message: "Cliente excluído com sucesso!" });
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({ error: error.message });
     }
-})
+});
 
 export default router
