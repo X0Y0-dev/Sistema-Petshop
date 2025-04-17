@@ -36,8 +36,8 @@ async function fetchCliente() {
                     <li>Senha: ${escapeHtml(cliente.senha)}</li>
                 </div>
                 <div>
-                    <button class="botao-primario conteudo" onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
-                    <button class="botao-primario conteudo" onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
+                    <button class="botao-primario" onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
+                    <button class="botao-primario" onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
                 </div>
             `;
             list.appendChild(li);
