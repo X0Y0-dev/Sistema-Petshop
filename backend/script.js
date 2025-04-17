@@ -27,21 +27,20 @@ async function fetchCliente() {
             const li = document.createElement("li");
             li.id = `cliente-${cliente.id_cliente}`;
             li.innerHTML = `
-                <div class="dados-item">
-                    <div class="dados-texto">
-                        <li><strong>Nome</strong>: <span>${escapeHtml(cliente.nome_cliente)}</span></li> 
-                        <li><strong>Sobrenome</strong>: <span>${escapeHtml(cliente.sobrenome_cliente)}</span></li>
-                        <li><strong>Tel</strong>: <span>${escapeHtml(cliente.telefone)}</span></li>
-                        <li><strong>CPF</strong>: <span>${escapeHtml(cliente.cpf)}</span></li>
-                        <li><strong>Email</strong>: <span>${escapeHtml(cliente.email)}</span></li>
-                        <li><strong>Senha</strong>: <span>${escapeHtml(cliente.senha)}</span></li>
-                    </div>
-
+                <div class="dados-texto">
+                    <p><strong>Nome:</strong> ${escapeHtml(cliente.nome_cliente)}</p>
+                    <p><strong>Sobrenome:</strong> ${escapeHtml(cliente.sobrenome_cliente)}</p>
+                    <p><strong>Telefone:</strong> ${escapeHtml(cliente.telefone)}</p>
+                    <p><strong>CPF:</strong> ${escapeHtml(cliente.cpf)}</p>
+                    <p><strong>Email:</strong> ${escapeHtml(cliente.email)}</p>
                 </div>
-                <div class="botoes-acoes">
-                    <button class="botao-primario" onclick="editarCliente('${cliente.id_cliente}')">Editar</button>
-                    <button class="botao-primario" onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
-                    <button class="botao-primario botao-voltar" onclick="cancelarEdicao('${cliente.id_cliente}')" style="display:none;">Voltar</button>
+                
+                <div class="botoes-container">
+                    <div class="botoes-superiores botoes-conta">
+                        <button class="botao-primario btn-editar"onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
+                        <button class="botao-primario" onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
+                    </div>
+                    <button class="botao-primario botao-voltar" onclick="window.location.href='index.html'">Voltar</button>
                 </div>
             `;
             list.appendChild(li);
@@ -227,14 +226,65 @@ async function deletarCliente(id) {
 }
 
 function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha) {
-    document.getElementById("nome_cliente").value = nome_cliente
-    document.getElementById("sobrenome_cliente").value = sobrenome_cliente
-    document.getElementById("telefone").value = telefone
-    document.getElementById("cpf").value = cpf
-    document.getElementById("email").value = email
-    document.getElementById("senha").value = senha
-    document.getElementById("addButton").innerText = "Atualizar"
-    editingId = id_cliente
+    console.log("Editando:", {id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha}); // Debug
+    
+    const formEdicao = document.getElementById("form-edicao");
+    if (formEdicao) {
+        // Preenche os campos
+        document.getElementById("edit_nome").value = nome_cliente || '';
+        document.getElementById("edit_sobrenome").value = sobrenome_cliente || '';
+        document.getElementById("edit_telefone").value = telefone || '';
+        document.getElementById("edit_cpf").value = cpf || '';
+        document.getElementById("edit_email").value = email || '';
+        document.getElementById("edit_senha").value = senha || '';
+        
+        // Remove event listeners antigos
+        const btnAtualizar = document.getElementById("btn-atualizar");
+        btnAtualizar.replaceWith(btnAtualizar.cloneNode(true));
+        const newBtn = document.getElementById("btn-atualizar");
+        
+        // Adiciona novo listener
+        newBtn.onclick = function() {
+            atualizarCliente(id_cliente);
+        };
+        
+        // Alterna a visibilidade
+        document.getElementById("listaClientes").style.display = "none";
+        formEdicao.style.display = "block";
+        editingId = id_cliente;
+    }
+}
+
+async function atualizarCliente(id) {
+    try {
+        const response = await fetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nome_cliente: document.getElementById("edit_nome").value,
+                sobrenome_cliente: document.getElementById("edit_sobrenome").value,
+                telefone: document.getElementById("edit_telefone").value,
+                cpf: document.getElementById("edit_cpf").value,
+                email: document.getElementById("edit_email").value,
+                senha: document.getElementById("edit_senha").value
+            })
+        });
+
+        if (!response.ok) throw new Error("Falha na atualização");
+        
+        alert("Dados atualizados com sucesso!");
+        cancelarEdicao();
+        fetchCliente(); // Recarrega os dados
+    } catch (error) {
+        console.error("Erro ao atualizar:", error);
+        alert("Erro ao atualizar dados");
+    }
+}
+
+function cancelarEdicao() {
+    document.getElementById("listaClientes").style.display = "block";
+    document.getElementById("form-edicao").style.display = "none";
+    editingId = null;
 }
 
 async function login() {
@@ -275,7 +325,7 @@ async function login() {
 async function verificarLogin() {
     // Verifica se há dados de usuário no localStorage
     const userData = localStorage.getItem('user');
-    
+
     if (userData) {
         // Usuário está logado - redireciona para a página de conta
         window.location.href = 'Conta.html';

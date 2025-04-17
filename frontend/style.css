@@ -455,16 +455,18 @@ body
 
 
 /* Estilos gerais */
-.container-conta {
+.container-conta 
+{
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f5f5f5;
+    background-color: rgb(86, 173, 255);
     padding: 20px;
 }
 
-.caixa-conta {
+.caixa-conta 
+{
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -474,27 +476,32 @@ body
 }
 
 /* Estilo da lista de dados */
-.lista-dados {
+.lista-dados 
+{
     list-style: none;
     padding: 0;
     margin: 20px 0;
 }
 
-.dados-item {
+.dados-item 
+{
     margin-bottom: 15px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
 }
 
-.dados-item:last-child {
+.dados-item:last-child 
+{
     border-bottom: none;
 }
 
-.dados-texto {
+.dados-texto 
+{
     display: block;
 }
 
-.dados-input {
+.dados-input 
+{
     display: none;
 }
 
@@ -502,29 +509,62 @@ body
 .botoes-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center; /* Centraliza verticalmente */
     margin-top: 30px;
 }
 
 .botoes-superiores {
     display: flex;
+    justify-content: center; /* Centraliza os botões */
     gap: 10px;
+    width: 100%;
 }
 
-.botao-voltar {
+.botao-voltar 
+{
     width: 100%;
     display: none; /* Escondido inicialmente */
 }
 
+/* Container dos botões de edição */
+.botoes-edicao 
+{
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    gap: 10px; /* Espaço entre os botões */
+    margin: 20px 0;
+}
+
+/* Estilo para o botão Voltar */
+.botao-voltar 
+{
+    width: 100%;
+    max-width: 200px; /* Largura máxima */
+    margin: 10px auto 0; /* Centraliza e adiciona margem no topo */
+    display: block; /* Garante que ocupa a linha toda */
+}
+
+/* Ajuste para os botões dentro do formulário de edição */
+#form-edicao .botoes-conta 
+{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
 /* Modo edição */
-.modo-edicao .dados-texto {
+.modo-edicao .dados-texto 
+{
     display: none;
 }
 
-.modo-edicao .dados-input {
+.modo-edicao .dados-input 
+{
     display: block;
 }
 
-.modo-edicao .botao-voltar {
+.modo-edicao .botao-voltar 
+{
     display: block;
 }
