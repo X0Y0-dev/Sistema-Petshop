@@ -63,12 +63,20 @@ body
 }
 
 /* Placeholder enquanto a logo ainda não é adicionada */
-.logo 
-{
-    cursor: pointer;
-    margin-right: auto;
-    font-weight: bold;
-    font-size: 1.5rem;
+.logo-container {
+    width: 180px;       /* Largura máxima da logo */
+    height: 60px;       /* Altura máxima da logo */
+    margin-right: auto; /* Mantém alinhado à esquerda */
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo para a imagem dentro do container */
+.logo-container img {
+    width: 100%;        /* Ocupa 100% da largura do container */
+    height: auto;       /* Altura proporcional */
+    max-height: 100%;   /* Nunca ultrapassa a altura do container */
+    object-fit: contain; /* Mantém proporções sem distorcer */
 }
 
 /* Indicador de que as opçãos no menu (textos e botões) são clicáveis */
@@ -368,6 +376,11 @@ body
     padding: 20px;
     box-sizing: border-box;
     background-color: rgb(86, 173, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    width: 100%;
 }
 
 /* Caixa do formulário */
