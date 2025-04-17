@@ -28,14 +28,16 @@ async function fetchCliente() {
             li.id = `cliente-${cliente.id_cliente}`;
             li.innerHTML = `
                 <div>
-                    <span>${escapeHtml(cliente.nome_cliente)} ${escapeHtml(cliente.sobrenome_cliente)}</span>
-                    <span>Tel: ${escapeHtml(cliente.telefone)}</span>
-                    <span>CPF: ${escapeHtml(cliente.cpf)}</span>
-                    <span>Email: ${escapeHtml(cliente.email)}</span>
+                    <li>Nome:${escapeHtml(cliente.nome_cliente)}</li> 
+                    <li>Sobrenome: ${escapeHtml(cliente.sobrenome_cliente)}</li>
+                    <li>Tel: ${escapeHtml(cliente.telefone)}</span>
+                    <li>CPF: ${escapeHtml(cliente.cpf)}</span>
+                    <li>Email: ${escapeHtml(cliente.email)}</li>
+                    <li>Senha: ${escapeHtml(cliente.senha)}</li>
                 </div>
                 <div>
-                    <button onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
-                    <button onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
+                    <button class="botao-primario conteudo" onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
+                    <button class="botao-primario conteudo" onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
                 </div>
             `;
             list.appendChild(li);
@@ -87,84 +89,107 @@ async function criarEatualizarCliente() {
     const cpf = document.getElementById("cpf")?.value;
     const email = document.getElementById("email")?.value;
     const senha = document.getElementById("senha")?.value;
+
     // Verifica se estamos na página de cadastro
-    if (nome_cliente === undefined || sobrenome_cliente === undefined || telefone === undefined || cpf === undefined || email === undefined || senha === undefined) return; {
+    if (nome_cliente === undefined || sobrenome_cliente === undefined || telefone === undefined || cpf === undefined || email === undefined || senha === undefined) return;
 
-        // Verificação de e-mail duplicado (só para criação, não para edição)
+    // Verificação de e-mail duplicado (só para criação, não para edição)
+    if (!editingId) {
+        const cliente = await getCliente();
+        if (cliente.some(cliente => cliente.email === email)) {
+            alert("E-mail já cadastrado.");
+            return;
+        }
+    }
+
+    // --- Validações ANTES da requisição ---
+    if (!nome_cliente || !sobrenome_cliente || !telefone || !cpf || !email || !senha) {
+        return alert("Por favor, preencha todos os campos solicitados.");
+    }
+
+    if (nome_cliente.length < 3 || nome_cliente.length > 50) {
+        alert("O nome de usuário deve ter entre 3 a 50 caracteres.");
+        return;
+    }
+
+    if (sobrenome_cliente.length < 3 || sobrenome_cliente.length > 50) {
+        alert("O sobrenome de usuário deve ter entre 3 a 50 caracteres.");
+        return;
+    }
+
+    if (telefone.length < 17) {
+        alert("Telefone inválido. O telefone deve ser feito no seguinte modelo: +99 (99) 99999-9999.");
+        return;
+    }
+
+    if (!validarCPF(cpf)) {
+        alert("CPF inválido. O CPF deve ser feito no seguinte modelo: 999.999.999-99.");
+        return;
+    }
+
+    if (email.length < 8 || email.length > 100) {
+        alert("E-mail inválido. O e-mail deve ter entre 8 e 100 caracteres.");
+        return;
+    }
+
+    if (!emailValido(email)) {
+        alert("Por favor, insira um e-mail válido.");
+        return;
+    }
+
+    if (senha.length < 8 || senha.length > 50 || !senha.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/)) {
+        alert("Senha inválida. A senha deve ter 8 a 50 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
+        return;
+    }
+
+    // --- Requisição à API ---
+    try {
+        let url = API_URL;
+        let method = "POST";
+
+        // Se estiver editando, muda a URL e o método
+        if (editingId) {
+            url = `${API_URL}/${editingId}`;
+            method = "PUT";
+        }
+
+        const response = await fetch(url, {
+            method: method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nome_cliente,
+                sobrenome_cliente,
+                telefone,
+                cpf,
+                email,
+                senha
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Falha ao ${editingId ? 'atualizar' : 'criar'} cliente`);
+        }
+
+        alert(`Cliente ${editingId ? 'atualizado' : 'criado'} com sucesso!`);
+
+        // Limpa o formulário e o editingId após sucesso
         if (!editingId) {
-            const cliente = await getCliente();
-            if (cliente.some(cliente => cliente.email === email)) {
-                alert("E-mail já cadastrado.");
-                return;
-            }
-        }
-
-        // --- Validações ANTES da requisição ---
-        if (!nome_cliente || !sobrenome_cliente || !telefone || !cpf || !email || !senha) {
-            return alert("Por favor, preencha todos os campos solicitados.");
-        }
-
-        if (nome_cliente.length < 3 || nome_cliente.length > 50) {
-            alert("O nome de usuário deve ter entre 3 a 50 caracteres.");
-            return;
-        }
-
-        if (sobrenome_cliente.length < 3 || sobrenome_cliente.length > 50) {
-            alert("O sobrenome de usuário deve ter entre 3 a 50 caracteres.");
-            return;
-        }
-
-        if (telefone.length < 17) {
-            alert("Telefone inválido. O telefone deve ser feito no seguinte modelo: +99 (99) 99999-9999.");
-            return;
-        }
-
-        if (!validarCPF(cpf)) {
-            alert("CPF inválido. O CPF deve ser feito no seguinte modelo: 999.999.999-99.");
-            return;
-        }
-
-        if (email.length < 8 || email.length > 100) {
-            alert("E-mail inválido. O e-mail deve ter entre 8 e 100 caracteres.");
-            return;
-        }
-
-        if (!emailValido(email)) {
-            alert("Por favor, insira um e-mail válido.");
-            return;
-        }
-
-        if (senha.length < 8 || senha.length > 50 || !senha.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/)) {
-            alert("Senha inválida. A senha deve ter 8 a 50 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
-            return;
-        }
-
-        // --- Requisição à API ---
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    nome_cliente, 
-                    sobrenome_cliente, 
-                    telefone, 
-                    cpf, 
-                    email, 
-                    senha 
-                })
-            });
-            
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "Falha ao criar cliente");
-            }
-            
-            alert("Conta criada com sucesso!");
             window.location.href = "index.html";
-        } catch (error) {
-            console.error("Erro detalhado:", error);
-            alert(error.message);
+        } else {
+            document.getElementById("nome_cliente").value = "";
+            document.getElementById("sobrenome_cliente").value = "";
+            document.getElementById("telefone").value = "";
+            document.getElementById("cpf").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("senha").value = "";
+            document.getElementById("addButton").innerText = "Adicionar";
+            editingId = null;
+            await fetchCliente();
         }
+    } catch (error) {
+        console.error("Erro detalhado:", error);
+        alert(error.message);
     }
 }
 async function deletarCliente(id) {
@@ -172,14 +197,14 @@ async function deletarCliente(id) {
         console.error("ID não fornecido para exclusão.");
         return;
     }
-    
+
     if (!confirm("Tem certeza que deseja excluir a conta?")) return;
-    
+
     try {
         const res = await fetch(`${API_URL}/${id}`, {  // Corrigido: usando o parâmetro 'id'
-            method: "DELETE" 
+            method: "DELETE"
         });
-        
+
         if (!res.ok) {
             const errorData = await res.json();
             throw new Error(errorData.error || "Falha ao excluir");
@@ -241,12 +266,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verifica em qual página estamos
     const isCadastroPage = window.location.pathname.includes('Cadastro.html');
     const isLoginPage = window.location.pathname.includes('Login.html');
-    
+
     // Executa fetchCliente apenas na página de cadastro
     if (isCadastroPage) {
         fetchCliente();
     }
-    
+
     // Configura o botão de login se estiver na página de login
     if (isLoginPage) {
         const loginButton = document.getElementById('loginButton');

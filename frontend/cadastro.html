@@ -4,24 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <title>Cadastro</title>
+    <style>
+        body {
+            font-family: 'Architects Daughter', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Cadastro</h1>
-    <input type="text" id="nome_cliente" placeholder="Nome">
-    <input type="text" id="sobrenome_cliente" placeholder="Sobrenome">
-    <input type="text" id="telefone" placeholder="Telefone">
-    <input type="text" id="cpf" placeholder="CPF">
-    <input type="text" id="email" placeholder="E-mail">
-    <input type="text" id="senha" placeholder="Senha">
+    <div class="container-conta">
+        <div class="caixa-conta">
+            <h1 class="titulo-conta">Cadastre-se</h1>
+            <input type="text" id="nome_cliente" class="input-conta" placeholder="Nome">
+            <input type="text" id="sobrenome_cliente" class="input-conta" placeholder="Sobrenome">
+            <input type="text" id="telefone" class="input-conta" placeholder="Telefone">
+            <input type="text" id="cpf" class="input-conta" placeholder="CPF">
+            <input type="text" id="email" class="input-conta" placeholder="E-mail">
+            <input type="text" id="senha" class="input-conta" placeholder="Senha">
 
-    <button id="addButton" onclick="criarEatualizarCliente()">Adicionar</button>
-    <button onclick="window.location.href='index.html'">Voltar</button>
+            <div class="botoes-conta">
+                <button id="addButton" class="botao-primario botao-conta"
+                    onclick="criarEatualizarCliente()">Adicionar</button>
+                <button class="botao-primario botao-conta" onclick="window.location.href='index.html'">Voltar</button>
+            </div>
 
-    <ul id="listaClientes"></ul>
+            <span>Já tem uma conta? Faça <a href="Login.html">Login</a></span>
+        </div>
+    </div>
 
-    <span>Já tem uma conta? Faça <a href="Login.html">Login</a></span>
     <script src="../backend/script.js"></script>
 </body>
 

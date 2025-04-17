@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
     <title>Login</title>
+    <style>
+        body {
+            font-family: 'Architects Daughter', sans-serif;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Login</h1>
-    <input type="text" id="email" placeholder="E-mail">
-    <input type="password" id="senha" placeholder="Senha">
-    
-    <button id="loginButton">Entrar</button>
-    <button onclick="window.location.href='index.html'">Voltar</button>
+    <div class="container-conta">
+        <div class="caixa-conta">
+            <h1 class="titulo-conta">Login</h1>
 
-    <ul id="listaClientes"></ul>
+            <input type="text" id="login-email" class="input-conta" placeholder="E-mail">
+            <input type="password" id="login-senha" class="input-conta" placeholder="Senha">
 
-    <span>Não tem uma conta? <a href="Cadastro.html">Cadastre-se</a></span>
-    
+            <div class="botoes-conta">
+                <button id="loginButton" class="botao-primario botao-conta">Entrar</button>
+                <button class="botao-primario botao-conta" onclick="window.location.href='index.html'">Voltar</button>
+            </div>
+
+            <ul id="login-lista-clientes" class="login-client-list"></ul>
+
+            <span>Não tem uma conta? <a href="Cadastro.html">Cadastre-se</a></span>
+        </div>
+    </div>
+
     <script src="../backend/script.js"></script>
 </body>
+
 </html>

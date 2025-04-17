@@ -1,4 +1,20 @@
 /*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+██    ██  ██████  ███    ███ ███████ ███████   ██████  ███████ ███████    ████
+██    ██ ██    ██ ████  ████ ██      ██    ██ ██    ██ ██      ██         ████
+████████ ██    ██ ██ ████ ██ █████   ███████  ████████ ██ ████ █████
+██    ██ ██    ██ ██  ██  ██ ██      ██       ██    ██ ██   ██ ██         ████
+██    ██  ██████  ██      ██ ███████ ██       ██    ██ ███████ ███████    ████
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+
+
+
+
+
+/*
 
 ███████  ███████ ███████ ███████ ██████████
 ██    ██ ██      ██      ██          ██
@@ -24,20 +40,20 @@ body
 ██      ██ ███████ ██   ████  ██████
 
 */
-/*Configuração da barra de menu*/
-.barra-cima
+/* Configuração da barra de menu */
+.barra-cima 
 {
     background-color: rgb(0, 132, 255);
     padding: 15px 0;
     display: flex;
     justify-content: center;
     width: 100%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
-/*Ajuste dos conteúdos dentro da barra de menu*/
-.barra-conteudo
+/* Ajuste dos conteúdos dentro da barra de menu */
+.barra-conteudo 
 {
     width: 100%;
     display: flex;
@@ -46,8 +62,8 @@ body
     padding: 0 20px;
 }
 
-/*Placeholder enquanto a logo ainda não é adicionada*/
-.logo
+/* Placeholder enquanto a logo ainda não é adicionada */
+.logo 
 {
     cursor: pointer;
     margin-right: auto;
@@ -55,8 +71,8 @@ body
     font-size: 1.5rem;
 }
 
-/*Indicador de que as opçãos no menu (textos e botões) são clicáveis*/
-.opcoes-menu
+/* Indicador de que as opçãos no menu (textos e botões) são clicáveis */
+.opcoes-menu 
 {
     cursor: pointer;
     margin-right: auto;
@@ -72,7 +88,7 @@ body
 ███████   ██████      ██      ██████  ███████ ███████
 
 */
-/*Estilização dos botões + animação de quando o mouse passa por cima*/
+/* Estilização dos botões + animação de quando o mouse passa por cima */
 .botao-primario 
 {
     cursor: pointer;
@@ -90,14 +106,14 @@ body
     margin: 10px 0;
 }
 
-/*Configuração dos botões na barra de menu*/
+/* Configuração dos botões na barra de menu */
 .botao-primario.menu 
 {
     margin: 0 5px;
     padding: 10px 20px;
 }
 
-/*Configuração dos botões presentes dentro do corpo do HTML*/
+/* Configuração dos botões presentes dentro do corpo do HTML */
 .botao-primario.conteudo 
 {
     margin: 30px auto;
@@ -105,7 +121,7 @@ body
     width: fit-content;
 }
 
-/*Animações quando o mouse passa por cima do botão:*/
+/* Animações quando o mouse passa por cima do botão */
 .botao-primario:hover 
 {
     background-color: rgb(200, 40, 40);
@@ -169,14 +185,14 @@ body
 ███████ ██    ██ ██ ███████  ██    ██     ██      ██ ██    ██ ██ ███████
 
 */
-/*Configuração do espaço onde ficarão os conteúrdos*/
+/* Configuração do espaço onde ficarão os conteúrdos */
 .saiba-mais-conteudo 
 {
     display: flex;
     width: 100%;
 }
 
-/*Configuração da imagem*/
+/* Configuração da imagem */
 #saiba-mais-imagem 
 {
     margin-left: 120px;
@@ -185,8 +201,9 @@ body
     max-width: 50%;
 }
 
-/*Configuração do texto*/
-#saiba-mais-descricao {
+/* Configuração do texto */
+#saiba-mais-descricao 
+{
     max-width: 50%;
     margin-top: 100px;
     margin-left: 100px;
@@ -194,9 +211,12 @@ body
     background-color: rgba(0, 132, 255, 0.1);
     border-radius: 8px;
     border-left: 4px solid rgb(0, 132, 255);
-    padding: 30px; /* Espaçamento interno generoso */
-    line-height: 1.6; /* Altura de linha melhorada */
-    text-align: justify; /* Texto alinhado */
+    padding: 30px;
+    /* Espaçamento interno generoso */
+    line-height: 1.6;
+    /* Altura de linha melhorada */
+    text-align: justify;
+    /* Texto alinhado */
 }
 
 
@@ -209,14 +229,14 @@ body
 ██    ██ ███████   ██████      ██     ███████
 
 */
-/*Configuração do espaço para o carrossel*/
+/* Configuração do espaço para o carrossel */
 .carrossel-container 
 {
     width: 100%;
     position: relative;
 }
 
-/*Configuração do carrossel*/
+/* Configuração do carrossel */
 .adote-conteudo.carrossel 
 {
     display: flex;
@@ -227,12 +247,18 @@ body
 
 @keyframes scroll 
 {
-    0% { transform: translateX(0); }
+    0% 
+    {
+        transform: translateX(0);
+    }
 
-    100% { transform: translateX(calc(-50% - 15px)); }
+    100% 
+    {
+        transform: translateX(calc(-50% - 15px));
+    }
 }
 
-/*Configuração das imagens que serão apresentadas no carrosel*/
+/* Configuração das imagens que serão apresentadas no carrosel */
 .carrossel-img 
 {
     width: 280px;
@@ -244,14 +270,14 @@ body
     margin-top: 15px;
 }
 
-/*Indicando que quando o mouse passar por alguma imagem, a mesma aumentará levemente seu tamanho*/
+/* Indicando que quando o mouse passar por alguma imagem, a mesma aumentará levemente seu tamanho */
 .carrossel-img:hover 
 {
     transform: scale(1.10);
     z-index: 1;
 }
 
-/*Indicando que a animação de carrossel deve parar quando o mouse estiver encima de alguma imagem*/
+/* Indicando que a animação de carrossel deve parar quando o mouse estiver encima de alguma imagem */
 .adote-conteudo.carrossel:hover 
 {
     animation-play-state: paused;
@@ -267,7 +293,7 @@ body
 ██    ██  ██████  ██    ██ ██    ██ ██    ██ ██  ██████
 
 */
-/*Configuração do espaço que será trabalhado*/
+/* Configuração do espaço que será trabalhado */
 .agende-horario-conteudo 
 {
     display: grid;
@@ -277,9 +303,8 @@ body
     padding: 0 15px;
 }
 
-/*Configuração das imagens*/
-.agende-img 
-{
+/* Configuração das imagens */
+.agende-img {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -290,20 +315,108 @@ body
     cursor: pointer;
 }
 
-/*Animação para imagem aumentar de tamanho quando o mouse passar por cima*/
+/* Animação para imagem aumentar de tamanho quando o mouse passar por cima */
 .agende-img:hover 
 {
     transform: scale(1.05);
 }
 
-.agendar-horario-descricao {
-    grid-column: 1 / -1; /* Ocupa todas as colunas */
+.agendar-horario-descricao 
+{
+    grid-column: 1 / -1;
+    /* Ocupa todas as colunas */
     margin-top: 20px;
     padding: 15px;
     font-size: 1.2rem;
     line-height: 1.6;
     text-align: center;
-    background-color: rgba(0, 132, 255, 0.1); /* Fundo azul claro */
+    background-color: rgba(0, 132, 255, 0.1);
+    /* Fundo azul claro */
     border-radius: 8px;
-    border-left: 4px solid rgb(0, 132, 255); /* Borda lateral decorativa */
+    border-left: 4px solid rgb(0, 132, 255);
+    /* Borda lateral decorativa */
+}
+
+
+
+
+
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+███████  ██████  ███████   ██████  ███████ ██████████ ███████   ██████      ██ ██       ██████  ███████ ██ ███    ██    ████
+██      ██    ██ ██    ██ ██    ██ ██          ██     ██    ██ ██    ██    ██  ██      ██    ██ ██      ██ ████   ██    ████
+██      ████████ ██    ██ ████████ ███████     ██     ███████  ██    ██   ██   ██      ██    ██ ██  ███ ██ ██ ██  ██
+██      ██    ██ ██    ██ ██    ██      ██     ██     ██    ██ ██    ██  ██    ██      ██    ██ ██   ██ ██ ██  ██ ██    ████
+███████ ██    ██ ███████  ██    ██ ███████     ██     ██    ██  ██████  ██     ███████  ██████  ███████ ██ ██   ████    ████ 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+
+
+
+
+
+/* Container principal do formulário */
+.container-conta 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgb(86, 173, 255);
+}
+
+/* Caixa do formulário */
+.caixa-conta 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    gap: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 4px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+/* Título do formulário */
+.titulo-conta 
+{
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* Campos de input */
+.input-conta 
+{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Container dos botões */
+.botoes-conta 
+{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Botões individuais */
+.botao-conta 
+{
+    flex: 1;
+    padding: 10px;
+    text-align: center;
 }
