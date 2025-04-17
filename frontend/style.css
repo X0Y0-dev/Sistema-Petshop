@@ -433,3 +433,98 @@ body
     padding: 10px;
     text-align: center;
 }
+
+
+
+
+
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+███████ ███████  ██ ██████████  ██████  ███████      ███████  ██████  ███    ██ ██████████  ██████
+██      ██    ██ ██     ██     ██    ██ ██    ██     ██      ██    ██ ████   ██     ██     ██    ██
+█████   ██    ██ ██     ██     ████████ ███████      ██      ██    ██ ██ ██  ██     ██     ████████
+██      ██    ██ ██     ██     ██    ██ ██    ██     ██      ██    ██ ██  ██ ██     ██     ██    ██
+███████ ███████  ██     ██     ██    ██ ██    ██     ███████  ██████  ██   ████     ██     ██    ██
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+
+
+
+
+
+/* Estilos gerais */
+.container-conta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.caixa-conta {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+}
+
+/* Estilo da lista de dados */
+.lista-dados {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.dados-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.dados-item:last-child {
+    border-bottom: none;
+}
+
+.dados-texto {
+    display: block;
+}
+
+.dados-input {
+    display: none;
+}
+
+/* Estilo dos botões */
+.botoes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.botoes-superiores {
+    display: flex;
+    gap: 10px;
+}
+
+.botao-voltar {
+    width: 100%;
+    display: none; /* Escondido inicialmente */
+}
+
+/* Modo edição */
+.modo-edicao .dados-texto {
+    display: none;
+}
+
+.modo-edicao .dados-input {
+    display: block;
+}
+
+.modo-edicao .botao-voltar {
+    display: block;
+}

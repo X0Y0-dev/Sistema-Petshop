@@ -27,17 +27,21 @@ async function fetchCliente() {
             const li = document.createElement("li");
             li.id = `cliente-${cliente.id_cliente}`;
             li.innerHTML = `
-                <div>
-                    <li>Nome:${escapeHtml(cliente.nome_cliente)}</li> 
-                    <li>Sobrenome: ${escapeHtml(cliente.sobrenome_cliente)}</li>
-                    <li>Tel: ${escapeHtml(cliente.telefone)}</span>
-                    <li>CPF: ${escapeHtml(cliente.cpf)}</span>
-                    <li>Email: ${escapeHtml(cliente.email)}</li>
-                    <li>Senha: ${escapeHtml(cliente.senha)}</li>
+                <div class="dados-item">
+                    <div class="dados-texto">
+                        <li><strong>Nome</strong>: <span>${escapeHtml(cliente.nome_cliente)}</span></li> 
+                        <li><strong>Sobrenome</strong>: <span>${escapeHtml(cliente.sobrenome_cliente)}</span></li>
+                        <li><strong>Tel</strong>: <span>${escapeHtml(cliente.telefone)}</span></li>
+                        <li><strong>CPF</strong>: <span>${escapeHtml(cliente.cpf)}</span></li>
+                        <li><strong>Email</strong>: <span>${escapeHtml(cliente.email)}</span></li>
+                        <li><strong>Senha</strong>: <span>${escapeHtml(cliente.senha)}</span></li>
+                    </div>
+
                 </div>
-                <div>
-                    <button class="botao-primario" onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
+                <div class="botoes-acoes">
+                    <button class="botao-primario" onclick="editarCliente('${cliente.id_cliente}')">Editar</button>
                     <button class="botao-primario" onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
+                    <button class="botao-primario botao-voltar" onclick="cancelarEdicao('${cliente.id_cliente}')" style="display:none;">Voltar</button>
                 </div>
             `;
             list.appendChild(li);
@@ -175,7 +179,8 @@ async function criarEatualizarCliente() {
 
         // Limpa o formulário e o editingId após sucesso
         if (!editingId) {
-            window.location.href = "index.html";
+            alert("Por favor, efetue o login!");
+            window.location.href = "Login.html";
         } else {
             document.getElementById("nome_cliente").value = "";
             document.getElementById("sobrenome_cliente").value = "";
@@ -209,7 +214,11 @@ async function deletarCliente(id) {
             const errorData = await res.json();
             throw new Error(errorData.error || "Falha ao excluir");
         }
+
+        localStorage.removeItem('user')
+
         alert("Conta excluida com sucesso!");
+        window.location.href = "index.html";
         await fetchCliente();  // Corrigido: chamando fetchCliente() em vez de fetchItems()
     } catch (error) {
         console.error("Erro ao excluir:", error);
@@ -229,8 +238,8 @@ function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cp
 }
 
 async function login() {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
+    const email = document.getElementById("login-email").value;
+    const senha = document.getElementById("login-senha").value;
 
     if (!email || !senha) {
         return alert("Por favor, preencha todos os campos.");
@@ -251,9 +260,9 @@ async function login() {
 
         if (data.success) {
             alert("Login bem-sucedido!");
-            window.location.href = "index.html";
-            // Armazena o usuário no localStorage
             localStorage.setItem('user', JSON.stringify(data.user));
+            // Armazena o usuário no localStorage
+            window.location.href = "index.html";
         } else {
             alert(data.message || "E-mail ou senha incorretos.");
         }
@@ -262,17 +271,38 @@ async function login() {
         alert("Erro ao fazer login. Tente novamente.");
     }
 }
+
+async function verificarLogin() {
+    // Verifica se há dados de usuário no localStorage
+    const userData = localStorage.getItem('user');
+    
+    if (userData) {
+        // Usuário está logado - redireciona para a página de conta
+        window.location.href = 'Conta.html';
+    } else {
+        // Usuário não está logado - mostra alerta e redireciona para login
+        alert("Para ver os dados de sua conta, você precisa efetuar o login!");
+        window.location.href = 'Login.html';
+    }
+}
 document.addEventListener('DOMContentLoaded', () => {
-    // Verifica em qual página estamos
+    // --- Configuração do Botão de Conta (funciona em todas as páginas) ---
+    const accountButton = document.getElementById('accountButton');
+    if (accountButton) {
+        accountButton.removeEventListener('click', verificarLogin); // Limpeza preventiva
+        accountButton.addEventListener('click', verificarLogin);
+    }
+
+    // --- Verificação de Página Específica ---
     const isCadastroPage = window.location.pathname.includes('Cadastro.html');
     const isLoginPage = window.location.pathname.includes('Login.html');
 
-    // Executa fetchCliente apenas na página de cadastro
+    // Página de Cadastro: Carrega dados do cliente
     if (isCadastroPage) {
         fetchCliente();
     }
 
-    // Configura o botão de login se estiver na página de login
+    // Página de Login: Configura o botão de login
     if (isLoginPage) {
         const loginButton = document.getElementById('loginButton');
         if (loginButton) {
@@ -280,5 +310,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
 fetchCliente()

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <title>Minha Conta</title>
+    <style>
+        body {
+            font-family: 'Architects Daughter', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-conta">
+        <div class="caixa-conta">
+            <h1 class="titulo-conta">Minha Conta</h1>
+            <div id="dados-container">
+                <!-- Dados serão injetados aqui -->
+                <ul id="listaClientes" class="lista-dados"></ul>
+
+                <!-- Formulário de edição (inicialmente escondido) -->
+                <div id="form-edicao" style="display: none;">
+                    <input type="text" id="edit_nome" class="input-conta">
+                    <input type="text" id="edit_sobrenome" class="input-conta">
+                    <input type="text" id="edit_telefone" class="input-conta">
+                    <input type="text" id="edit_cpf" class="input-conta">
+                    <input type="text" id="edit_email" class="input-conta">
+                    <input type="text" id="edit_senha" class="input-conta">
+
+                    <div class="botoes-conta">
+                        <button id="btn-atualizar" class="botao-primario">Atualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../backend/script.js"></script>
+</body>
+
+</html>
