@@ -12,7 +12,7 @@
 
 <a href="https://www.linkedin.com/in/lucas-alves-bernardo-093871252?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">`Lucas Alves Bernardo`</a>
 
-## Orientadores
+## Orientador
 
 <a href="https://www.linkedin.com/in/francisco-escobar/">`Me. Francisco de Souza Escobar`</a>
 
