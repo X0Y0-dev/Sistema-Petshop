@@ -37,10 +37,13 @@ async function fetchCliente() {
                 
                 <div class="botoes-container">
                     <div class="botoes-superiores botoes-conta">
-                        <button class="botao-primario btn-editar"onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
+                        <button class="botao-primario btn-editar" onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
                         <button class="botao-primario" onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
                     </div>
-                    <button class="botao-primario botao-voltar" onclick="window.location.href='index.html'">Voltar</button>
+                    <div class="botoes-inferiores">
+                        <button class="botao-primario botao-logout" onclick="logout()">Logout</button>
+                        <button class="botao-primario botao-voltar" onclick="window.location.href='index.html'">Voltar</button>
+                    </div>
                 </div>
             `;
             list.appendChild(li);
@@ -226,8 +229,8 @@ async function deletarCliente(id) {
 }
 
 function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha) {
-    console.log("Editando:", {id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha}); // Debug
-    
+    console.log("Editando:", { id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha }); // Debug
+
     const formEdicao = document.getElementById("form-edicao");
     if (formEdicao) {
         // Preenche os campos
@@ -237,17 +240,17 @@ function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cp
         document.getElementById("edit_cpf").value = cpf || '';
         document.getElementById("edit_email").value = email || '';
         document.getElementById("edit_senha").value = senha || '';
-        
+
         // Remove event listeners antigos
         const btnAtualizar = document.getElementById("btn-atualizar");
         btnAtualizar.replaceWith(btnAtualizar.cloneNode(true));
         const newBtn = document.getElementById("btn-atualizar");
-        
+
         // Adiciona novo listener
-        newBtn.onclick = function() {
+        newBtn.onclick = function () {
             atualizarCliente(id_cliente);
         };
-        
+
         // Alterna a visibilidade
         document.getElementById("listaClientes").style.display = "none";
         formEdicao.style.display = "block";
@@ -271,7 +274,7 @@ async function atualizarCliente(id) {
         });
 
         if (!response.ok) throw new Error("Falha na atualização");
-        
+
         alert("Dados atualizados com sucesso!");
         cancelarEdicao();
         fetchCliente(); // Recarrega os dados
@@ -319,6 +322,13 @@ async function login() {
     } catch (error) {
         console.error("Erro ao fazer login:", error);
         alert("Erro ao fazer login. Tente novamente.");
+    }
+}
+
+function logout() {
+    if (confirm('Deseja realmente sair da sua conta?')) {
+        localStorage.removeItem('user');
+        window.location.href = 'index.html';
     }
 }
 

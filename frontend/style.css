@@ -365,23 +365,78 @@ body
 
 
 
-/* Container principal do formulário */
-.container-conta 
+/* 
+
+███████   ██████  ██████████  ██████  ███████ ███████
+██    ██ ██    ██     ██     ██    ██ ██      ██
+███████  ██    ██     ██     ██    ██ █████   ███████
+██    ██ ██    ██     ██     ██    ██ ██           ██
+███████   ██████      ██      ██████  ███████ ███████
+
+*/
+/* Container dos botões */
+.botoes-conta 
 {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: rgb(86, 173, 255);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 40px;
+    gap: 10px;
     width: 100%;
+    margin-top: 10px;
 }
+
+/* Botões individuais */
+.botao-conta 
+{
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+}
+
+/*
+
+██ ███    ██ ███████  ██    ██ ██████████ ███████
+██ ████   ██ ██    ██ ██    ██     ██     ██
+██ ██ ██  ██ ███████  ██    ██     ██     ███████
+██ ██  ██ ██ ██       ██    ██     ██          ██
+██ ██   ████ ██        ██████      ██     ███████
+
+*/ 
+/* Campos de input */
+.input-conta 
+{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/*
+
+██████████ ██ ██████████ ██    ██ ██       ██████
+    ██     ██     ██     ██    ██ ██      ██    ██
+    ██     ██     ██     ██    ██ ██      ██    ██  
+    ██     ██     ██     ██    ██ ██      ██    ██
+    ██     ██     ██      ██████  ███████  ██████
+
+*/
+
+/* Título do formulário */
+.titulo-conta 
+{
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/*
+
+███████  ██████  ███    ██ ██████████  ██████  ██ ███    ██ ███████ ███████  ███████
+██      ██    ██ ████   ██     ██     ██    ██ ██ ████   ██ ██      ██    ██ ██
+██      ██    ██ ██ ██  ██     ██     ████████ ██ ██ ██  ██ █████   ███████  ███████
+██      ██    ██ ██  ██ ██     ██     ██    ██ ██ ██  ██ ██ ██      ██    ██      ██
+███████  ██████  ██   ████     ██     ██    ██ ██ ██   ████ ███████ ██    ██ ███████
+ 
+*/
 
 /* Caixa do formulário */
 .caixa-conta 
@@ -399,40 +454,22 @@ body
     background-color: #ffffff;
 }
 
-/* Título do formulário */
-.titulo-conta 
-{
-    margin: 0;
-    width: 100%;
-    text-align: center;
-}
-
-/* Campos de input */
-.input-conta 
-{
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Container dos botões */
-.botoes-conta 
+/* Container principal do formulário */
+.container-conta 
 {
     display: flex;
-    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgb(86, 173, 255);
+    flex-direction: column;
+    padding-top: 40px;
     width: 100%;
-    margin-top: 10px;
 }
 
-/* Botões individuais */
-.botao-conta 
-{
-    flex: 1;
-    padding: 10px;
-    text-align: center;
-}
 
 
 
@@ -454,7 +491,15 @@ body
 
 
 
-/* Estilos gerais */
+/* 
+
+███████ ███████ ██████████ ██ ██       ██████  ███████     ███████ ███████ ███████   ██████  ██ ███████
+██      ██          ██     ██ ██      ██    ██ ██          ██      ██      ██    ██ ██    ██ ██ ██
+█████   ███████     ██     ██ ██      ██    ██ ███████     ██ ████ █████   ███████  ████████ ██ ███████
+██           ██     ██     ██ ██      ██    ██      ██     ██   ██ ██      ██    ██ ██    ██ ██      ██
+███████ ███████     ██     ██ ███████  ██████  ███████     ███████ ███████ ██    ██ ██    ██ ██ ███████
+
+*/
 .container-conta 
 {
     display: flex;
@@ -473,6 +518,93 @@ body
     width: 100%;
     max-width: 500px;
     padding: 30px;
+}
+
+/* 
+
+███████   ██████  ██████████  ██████  ███████ ███████
+██    ██ ██    ██     ██     ██    ██ ██      ██
+███████  ██    ██     ██     ██    ██ █████   ███████
+██    ██ ██    ██     ██     ██    ██ ██           ██
+███████   ██████      ██      ██████  ███████ ███████
+
+*/
+.botoes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza verticalmente */
+    margin-top: 30px;
+}
+
+.botoes-superiores {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    gap: 10px;
+    width: 100%;
+}
+
+/* Container dos botões de edição */
+.botoes-edicao 
+{
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    gap: 10px; /* Espaço entre os botões */
+    margin: 20px 0;
+}
+
+/* Ajuste para os botões dentro do formulário de edição */
+#form-edicao .botoes-conta 
+{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Container dos botões inferiores */
+.botoes-inferiores {
+    display: flex;
+    justify-content: space-between; /* Separa os botões */
+    width: 100%;
+    margin-top: 20px;
+    gap: 10px; /* Espaço entre os botões */
+}
+
+/* Estilo para ambos botões */
+.botao-voltar, .botao-logout {
+    flex: 1; /* Ocupam espaço igual */
+    max-width: calc(50% - 5px); /* Metade do espaço menos a metade do gap */
+}
+
+/* Estilo específico do botão Voltar */
+.botao-voltar {
+    width: 100%;
+    max-width: 200px;
+    display: block;
+}
+
+/*
+
+███████ ███████  ██ ████████  ██████   ██████
+██      ██    ██ ██ ██       ██    ██ ██    ██
+█████   ██    ██ ██ ██       ████████ ██    ██
+██      ██    ██ ██ ████████ ██    ██ ██    ██
+███████ ███████  ██    ██    ██    ██  ██████
+
+*/
+.modo-edicao .dados-texto 
+{
+    display: none;
+}
+
+.modo-edicao .dados-input 
+{
+    display: block;
+}
+
+.modo-edicao .botao-voltar 
+{
+    display: block;
 }
 
 /* Estilo da lista de dados */
@@ -503,68 +635,4 @@ body
 .dados-input 
 {
     display: none;
-}
-
-/* Estilo dos botões */
-.botoes-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza verticalmente */
-    margin-top: 30px;
-}
-
-.botoes-superiores {
-    display: flex;
-    justify-content: center; /* Centraliza os botões */
-    gap: 10px;
-    width: 100%;
-}
-
-.botao-voltar 
-{
-    width: 100%;
-    display: none; /* Escondido inicialmente */
-}
-
-/* Container dos botões de edição */
-.botoes-edicao 
-{
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    gap: 10px; /* Espaço entre os botões */
-    margin: 20px 0;
-}
-
-/* Estilo para o botão Voltar */
-.botao-voltar 
-{
-    width: 100%;
-    max-width: 200px; /* Largura máxima */
-    margin: 10px auto 0; /* Centraliza e adiciona margem no topo */
-    display: block; /* Garante que ocupa a linha toda */
-}
-
-/* Ajuste para os botões dentro do formulário de edição */
-#form-edicao .botoes-conta 
-{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Modo edição */
-.modo-edicao .dados-texto 
-{
-    display: none;
-}
-
-.modo-edicao .dados-input 
-{
-    display: block;
-}
-
-.modo-edicao .botao-voltar 
-{
-    display: block;
 }
