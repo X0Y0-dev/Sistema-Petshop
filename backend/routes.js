@@ -1,5 +1,7 @@
 import express from 'express'
 import db from './db.js'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 const router = express.Router()
 
@@ -8,9 +10,11 @@ router.post("/cliente", async (req, res) => {
     try {
         const { nome_cliente, sobrenome_cliente, telefone, cpf, email, senha } = req.body;
         
+        const senhaHashed = await bcrypt.hash(senha, 10);
+        
         const [result] = await db.execute(
             "INSERT INTO cliente(nome_cliente, sobrenome_cliente, telefone, cpf, email, senha) VALUES (?, ?, ?, ?, ?, ?)",
-            [nome_cliente, sobrenome_cliente, telefone, cpf, email, senha]
+            [nome_cliente, sobrenome_cliente, telefone, cpf, email, senhaHashed]
         );
         
         res.json({ 
@@ -30,6 +34,46 @@ router.post("/cliente", async (req, res) => {
     }
 });
 
+router.post("/cliente/login", async (req, res) => {
+    try {
+        const { email, senha } = req.body;
+
+        // 1. Busca o cliente pelo e-mail
+        const [clientes] = await db.execute(
+            "SELECT * FROM cliente WHERE email = ?",
+            [email]
+        );
+
+        if (clientes.length === 0) {
+            return res.status(401).json({ success: false, message: "Credenciais inválidas" });
+        }
+
+        const cliente = clientes[0];
+
+        // 2. Compara a senha recebida com o hash do banco
+        const senhaCorreta = await bcrypt.compare(senha, cliente.senha);
+
+        if (!senhaCorreta) {
+            return res.status(401).json({ success: false, message: "Credenciais inválidas" });
+        }
+
+        // 3. Gera o token JWT se a senha estiver certa
+        const token = jwt.sign(
+            { id: cliente.id, email: cliente.email },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        // 4. Retorna o usuário e o token
+        res.json({ success: true, user: cliente, token });
+
+    } catch (error) {
+        console.error("Erro no login:", error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
 // READ
 router.get("/cliente", async (req, res) => {
     try {
@@ -41,21 +85,6 @@ router.get("/cliente", async (req, res) => {
     }
 })
 
-// LOGIN
-router.post("/cliente/login", async (req, res) => {
-    try {
-        const { email, senha } = req.body;
-        const [cliente] = await db.execute("SELECT * FROM cliente WHERE email = ? AND senha = ?", [email, senha]);
-
-        if (cliente.length > 0) {
-            res.json({ success: true, user: cliente[0] });
-        } else {
-            res.status(401).json({ success: false, message: "Credenciais inválidas" });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-})
 
 // UPDATE
 router.put("/cliente/:id_cliente", async (req, res) => {

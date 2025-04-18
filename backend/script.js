@@ -217,7 +217,7 @@ async function deletarCliente(id) {
             throw new Error(errorData.error || "Falha ao excluir");
         }
 
-        localStorage.removeItem('user')
+        localStorage.removeItem('token')
 
         alert("Conta excluida com sucesso!");
         window.location.href = "index.html";
@@ -313,7 +313,7 @@ async function login() {
 
         if (data.success) {
             alert("Login bem-sucedido!");
-            localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('token', JSON.stringify(data.token));
             // Armazena o usuário no localStorage
             window.location.href = "index.html";
         } else {
@@ -327,14 +327,14 @@ async function login() {
 
 function logout() {
     if (confirm('Deseja realmente sair da sua conta?')) {
-        localStorage.removeItem('user');
+        localStorage.removeItem('token');
         window.location.href = 'index.html';
     }
 }
 
 async function verificarLogin() {
     // Verifica se há dados de usuário no localStorage
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem('token');
 
     if (userData) {
         // Usuário está logado - redireciona para a página de conta
