@@ -34,6 +34,39 @@ router.post("/cliente", async (req, res) => {
     }
 });
 
+//PET
+router.post("/pet", async (req, res) => {
+    try {
+        const { id_cliente, nome_pet, especie, raca, sexo, peso, tamanho, castrado } = req.body;
+
+        const [result] = await db.execute(
+            `INSERT INTO pet (id_cliente, nome_pet, especie, raca, sexo, peso, tamanho, castrado) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [id_cliente, nome_pet, especie, raca, sexo, peso, tamanho, castrado]
+        );
+
+        res.json({
+            success: true,
+            id_pet: result.insertId,
+            id_cliente,
+            nome_pet,
+            especie,
+            raca,
+            sexo,
+            peso,
+            tamanho,
+            castrado
+        });
+    } catch (error) {
+        console.error("Erro detalhado:", error);
+        res.status(500).json({
+            success: false,
+            error: error.message,
+            stack: error.stack
+        });
+    }
+});
+
 //LOGIN
 router.post("/cliente/login", async (req, res) => {
     try {
@@ -60,10 +93,11 @@ router.post("/cliente/login", async (req, res) => {
 
         // 3. Gera o token JWT se a senha estiver certa
         const token = jwt.sign(
-            { id: cliente.id, email: cliente.email },
+            { id: cliente.id_cliente, email: cliente.email },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
+        
 
         // 4. Retorna o usuário e o token
         res.json({ success: true, user: cliente, token });
@@ -73,7 +107,6 @@ router.post("/cliente/login", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 // READ
 router.get("/cliente", async (req, res) => {

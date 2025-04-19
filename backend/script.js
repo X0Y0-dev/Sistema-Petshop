@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3000/api/cliente"
+const API_CLIENTE = "http://localhost:3000/api/cliente"
+const API_PET = "http://localhost:3000/api/pet"
 let editingId = null
 
 
@@ -8,7 +9,7 @@ function escapeHtml(str) {
 }
 
 async function getCliente() {
-    const res = await fetch(API_URL);
+    const res = await fetch(API_CLIENTE);
     if (!res.ok) throw new Error("Falha ao buscar dados");
     return await res.json();
 }
@@ -18,7 +19,7 @@ async function fetchCliente() {
         const list = document.getElementById("listaClientes");
         if (!list) return;
 
-        const res = await fetch(API_URL);
+        const res = await fetch(API_CLIENTE);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
 
@@ -105,6 +106,7 @@ async function validarDadosCliente(validarSenha = true) {
         email === undefined ||
         (validarSenha && senha === undefined) // Só valida a existência da senha se for pra validar mesmo
     ) {
+        alert("Algo deu errado ao capturar os campos. Tente recarregar a página.");
         return;
     }
 
@@ -182,14 +184,14 @@ async function validarDadosCliente(validarSenha = true) {
 }
 
 async function criarCliente() {
-    const dados = await validarDadosCliente(true);
-    if (!dados) return;
+    const dadosCliente = await validarDadosCliente(true);
+    if (!dadosCliente) return;
 
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(API_CLIENTE, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dados)
+            body: JSON.stringify(dadosCliente)
         });
 
         if (!response.ok) {
@@ -216,7 +218,7 @@ async function deletarCliente(id) {
     if (!confirm("Tem certeza que deseja excluir a conta?")) return;
 
     try {
-        const res = await fetch(`${API_URL}/${id}`, {  // Corrigido: usando o parâmetro 'id'
+        const res = await fetch(`${API_CLIENTE}/${id}`, {  // Corrigido: usando o parâmetro 'id'
             method: "DELETE"
         });
 
@@ -266,15 +268,15 @@ function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cp
 }
 
 async function atualizarCliente(id) {
-    const dados = await validarDadosCliente(false);
-    console.log("Dados para atualizar:", dados);
-    if (!dados) return;
+    const dadosCliente = await validarDadosCliente(false);
+    console.log("Dados para atualizar:", dadosCliente);
+    if (!dadosCliente) return;
 
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
+        const response = await fetch(`${API_CLIENTE}/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dados)
+            body: JSON.stringify(dadosCliente)
         });
 
         if (!response.ok) throw new Error("Falha na atualização");
@@ -298,6 +300,125 @@ async function atualizarCliente(id) {
     }
 }
 
+async function validarDadosPet() {
+    const nome_pet = document.getElementById("nome_pet")?.value;
+    const especie = document.getElementById("especie")?.value;
+    const raca = document.getElementById("raca")?.value;
+    const sexo = document.querySelector('input[name="sexo"]:checked')?.value;
+    const peso = document.getElementById("peso")?.value;
+    const tamanho = document.getElementById("tamanho")?.value;
+    const castrado = document.querySelector('input[name="castrado"]:checked')?.value;
+
+    // Checa existência de campos obrigatórios
+    if (
+        nome_pet === undefined ||
+        especie === undefined ||
+        sexo === undefined ||
+        castrado === undefined
+    ) {
+        alert("Algo deu errado ao capturar os campos. Tente recarregar a página.");
+        return;
+    }
+
+    // Validação dos campos obrigatórios
+    if (!nome_pet || 
+        !especie || 
+        !sexo) {
+        alert("Por favor, preencha os campos obrigatórios: Nome, Espécie e Sexo.");
+        return;
+    }
+
+    if (nome_pet.length < 2 || nome_pet.length > 50) {
+        alert("O nome do pet deve ter entre 2 e 50 caracteres.");
+        return;
+    }
+
+    if (especie.length < 3 || especie.length > 50) {
+        alert("A espécie deve ter entre 3 e 50 caracteres.");
+        return;
+    }
+
+    if (raca && raca.length > 30) {
+        alert("A raça do pet deve ter no máximo 30 caracteres.");
+        return;
+    }
+
+    if (peso) {
+        const pesoFloat = parseFloat(peso);
+        if (isNaN(pesoFloat) || pesoFloat <= 0) {
+            alert("O peso deve ser um número positivo.");
+            return;
+        }
+    }
+
+    if (tamanho && tamanho.length > 50) {
+        alert("O tamanho deve ter no máximo 50 caracteres.");
+        return;
+    }
+
+    // Cria objeto final
+    const resultado = {
+        nome_pet,
+        especie,
+        raca,
+        sexo,
+        peso: peso ? parseFloat(peso) : null,
+        tamanho,
+        castrado: castrado === "true"
+    };
+
+    return resultado;
+}
+
+async function criarPet(event) {
+    event.preventDefault();
+
+    const dadosPet = await validarDadosPet();
+    if (!dadosPet) return;
+
+    try {
+        const token = JSON.parse(localStorage.getItem('token'));
+        const id_cliente = getIdFromToken(token); // <- você pode extrair isso do token JWT, se estiver codificado com o `id`
+
+        const dadosComCliente = {
+            ...dadosPet,
+            id_cliente
+        };
+        console.log("Enviando para o banco:", dadosComCliente);
+        const res = await fetch(API_PET, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dadosComCliente)
+        });
+
+        if (!res.ok) throw new Error("Erro ao cadastrar o pet.");
+
+        const pet = await res.json();
+        if(pet.success) {
+            alert("Pet cadastrado com sucesso!");
+            localStorage.setItem('pet', JSON.stringify(pet));
+            window.location.href = "Servico.html";
+        }
+
+    } catch (error) {
+        console.error("Erro ao cadastrar pet:", error);
+        alert("Erro ao cadastrar o pet.");
+    }
+}
+
+//função para decodificar o token
+function getIdFromToken(token) {
+    try {
+        const payloadBase64 = token.split('.')[1]; // pega só o payload (parte do meio do JWT)
+        const payloadJson = atob(payloadBase64);   // decodifica de base64
+        const payload = JSON.parse(payloadJson);   // converte pra objeto JS
+        return payload.id; // <-- esse campo precisa existir no token gerado pelo backend
+    } catch (error) {
+        console.error("Erro ao decodificar token:", error);
+        return null;
+    }
+}
+
 function cancelarEdicao() {
     document.getElementById("listaClientes").style.display = "block";
     document.getElementById("form-edicao").style.display = "none";
@@ -313,7 +434,7 @@ async function login() {
     }
 
     try {
-        const res = await fetch(`${API_URL}/login`, {
+        const res = await fetch(`${API_CLIENTE}/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, senha })
@@ -347,15 +468,15 @@ function logout() {
 async function verificarLogin(event) {
     //Impede que o botão faça alguma ação inesperada antes de terminar de verificação
     event.preventDefault();
-    
+
     // Verifica se há dados de usuário no localStorage
     const userData = localStorage.getItem('token');
 
     if (userData) {
         const destino = event.currentTarget.getAttribute("redirecionar-destino");
-        if(destino) {
+        if (destino) {
             window.location.href = destino;
-        } else{
+        } else {
             console.warn("Destino não encontrado.")
         }
     } else {
@@ -389,6 +510,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
-
 
 fetchCliente()
