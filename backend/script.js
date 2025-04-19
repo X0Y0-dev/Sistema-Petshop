@@ -88,7 +88,7 @@ function validarCPF(cpf) {
     return cpf[9] == dig1 && cpf[10] == dig2;
 }
 
-async function validarDados(){
+async function validarDados(validarSenha = true) {
     const nome_cliente = document.getElementById("nome_cliente")?.value;
     const sobrenome_cliente = document.getElementById("sobrenome_cliente")?.value;
     const telefone = document.getElementById("telefone")?.value;
@@ -97,7 +97,16 @@ async function validarDados(){
     const senha = document.getElementById("senha")?.value;
 
     // Verifica se estamos na página de cadastro
-    if (nome_cliente === undefined || sobrenome_cliente === undefined || telefone === undefined || cpf === undefined || email === undefined || senha === undefined) return;
+    if (
+        nome_cliente === undefined ||
+        sobrenome_cliente === undefined ||
+        telefone === undefined ||
+        cpf === undefined ||
+        email === undefined ||
+        (validarSenha && senha === undefined) // Só valida a existência da senha se for pra validar mesmo
+    ) {
+        return;
+    }
 
     // Verificação de e-mail duplicado (só para criação, não para edição)
     if (!editingId) {
@@ -109,8 +118,16 @@ async function validarDados(){
     }
 
     // --- Validações ANTES da requisição ---
-    if (!nome_cliente || !sobrenome_cliente || !telefone || !cpf || !email || !senha) {
-        return alert("Por favor, preencha todos os campos solicitados.");
+    if (
+        !nome_cliente ||
+        !sobrenome_cliente ||
+        !telefone ||
+        !cpf ||
+        !email ||
+        (validarSenha && !senha)
+    ) {
+        alert("Por favor, preencha todos os campos solicitados.");
+        return;
     }
 
     if (nome_cliente.length < 3 || nome_cliente.length > 50) {
@@ -143,22 +160,29 @@ async function validarDados(){
         return;
     }
 
-    if (senha.length < 8 || senha.length > 50 || !senha.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/)) {
+    if (validarSenha && (senha.length < 8 || senha.length > 50 || !senha.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/))) {
         alert("Senha inválida. A senha deve ter 8 a 50 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
         return;
     }
-    return{
+    const resultado = {
         nome_cliente,
         sobrenome_cliente,
         telefone,
         cpf,
-        email,
-        senha
+        email
+    };
+
+    if (validarSenha && senha) {
+        resultado.senha = senha;
+    } else if (!validarSenha && senha) {
+        resultado.senha = senha; // só envia se foi digitada durante edição
     }
+
+    return resultado;
 }
 
 async function criarCliente() {
-    const dados = await validarDados();
+    const dados = await validarDados(true);
     if (!dados) return;
 
     try {
@@ -218,19 +242,19 @@ function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cp
     const formEdicao = document.getElementById("form-edicao");
     if (formEdicao) {
         // Preenche os campos
-        document.getElementById("edit_nome").value = nome_cliente || '';
-        document.getElementById("edit_sobrenome").value = sobrenome_cliente || '';
-        document.getElementById("edit_telefone").value = telefone || '';
-        document.getElementById("edit_cpf").value = cpf || '';
-        document.getElementById("edit_email").value = email || '';
+        document.getElementById("nome_cliente").value = nome_cliente || '';
+        document.getElementById("sobrenome_cliente").value = sobrenome_cliente || '';
+        document.getElementById("telefone").value = telefone || '';
+        document.getElementById("cpf").value = cpf || '';
+        document.getElementById("email").value = email || '';
 
-        // Remove event listeners antigos
         const btnAtualizar = document.getElementById("btn-atualizar");
-        btnAtualizar.replaceWith(btnAtualizar.cloneNode(true));
-        const newBtn = document.getElementById("btn-atualizar");
+
+        // Limpa qualquer evento anterior
+        btnAtualizar.onclick = null;
 
         // Adiciona novo listener
-        newBtn.onclick = function () {
+        btnAtualizar.onclick = function () {
             atualizarCliente(id_cliente);
         };
 
@@ -242,24 +266,32 @@ function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cp
 }
 
 async function atualizarCliente(id) {
+    const dados = await validarDados(false);
+    console.log("Dados para atualizar:", dados);
+    if (!dados) return;
+
     try {
         const response = await fetch(`${API_URL}/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                nome_cliente: document.getElementById("edit_nome").value,
-                sobrenome_cliente: document.getElementById("edit_sobrenome").value,
-                telefone: document.getElementById("edit_telefone").value,
-                cpf: document.getElementById("edit_cpf").value,
-                email: document.getElementById("edit_email").value,
-            })
+            body: JSON.stringify(dados)
         });
 
         if (!response.ok) throw new Error("Falha na atualização");
 
-        alert("Dados atualizados com sucesso!");
+        const infos = await response.json();
+        console.log("Resposta da API:", infos);
+
+        if (response.ok) {
+            // Atualiza o token APENAS se existir na resposta
+            if (infos.token) {
+                localStorage.setItem('token', JSON.stringify(infos.token));
+            }
+            alert("Dados atualizados com sucesso!");
+        }
+
         cancelarEdicao();
-        fetchCliente(); // Recarrega os dados
+        fetchCliente();
     } catch (error) {
         console.error("Erro ao atualizar:", error);
         alert("Erro ao atualizar dados");
@@ -287,9 +319,7 @@ async function login() {
             body: JSON.stringify({ email, senha })
         });
 
-        if (!res.ok) {
-            throw new Error(`Erro HTTP! status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Erro HTTP! status: ${res.status}`);
 
         const data = await res.json();
 
