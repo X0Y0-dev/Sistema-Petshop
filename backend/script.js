@@ -88,7 +88,7 @@ function validarCPF(cpf) {
     return cpf[9] == dig1 && cpf[10] == dig2;
 }
 
-async function validarDados(validarSenha = true) {
+async function validarDadosCliente(validarSenha = true) {
     const nome_cliente = document.getElementById("nome_cliente")?.value;
     const sobrenome_cliente = document.getElementById("sobrenome_cliente")?.value;
     const telefone = document.getElementById("telefone")?.value;
@@ -182,7 +182,7 @@ async function validarDados(validarSenha = true) {
 }
 
 async function criarCliente() {
-    const dados = await validarDados(true);
+    const dados = await validarDadosCliente(true);
     if (!dados) return;
 
     try {
@@ -266,7 +266,7 @@ function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cp
 }
 
 async function atualizarCliente(id) {
-    const dados = await validarDados(false);
+    const dados = await validarDadosCliente(false);
     console.log("Dados para atualizar:", dados);
     if (!dados) return;
 
@@ -344,13 +344,20 @@ function logout() {
     }
 }
 
-async function verificarLogin() {
+async function verificarLogin(event) {
+    //Impede que o botão faça alguma ação inesperada antes de terminar de verificação
+    event.preventDefault();
+    
     // Verifica se há dados de usuário no localStorage
     const userData = localStorage.getItem('token');
 
     if (userData) {
-        // Usuário está logado - redireciona para a página de conta
-        window.location.href = 'Conta.html';
+        const destino = event.currentTarget.getAttribute("redirecionar-destino");
+        if(destino) {
+            window.location.href = destino;
+        } else{
+            console.warn("Destino não encontrado.")
+        }
     } else {
         // Usuário não está logado - mostra alerta e redireciona para login
         alert("Para ver os dados de sua conta, você precisa efetuar o login!");
@@ -358,27 +365,27 @@ async function verificarLogin() {
     }
 }
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Configuração do Botão de Conta (funciona em todas as páginas) ---
-    const accountButton = document.getElementById('accountButton');
-    if (accountButton) {
-        accountButton.removeEventListener('click', verificarLogin); // Limpeza preventiva
-        accountButton.addEventListener('click', verificarLogin);
-    }
+    const botoesProtegidos = document.querySelectorAll("[redirecionar-destino]");
+
+    botoesProtegidos.forEach(botao => {
+        botao.removeEventListener('click', verificarLogin); // preventiva
+        botao.addEventListener('click', verificarLogin);
+    });
 
     // --- Verificação de Página Específica ---
     const isCadastroPage = window.location.pathname.includes('Cadastro.html');
+    const isAgendarPage = window.location.pathname.includes('Agendar.html');
     const isLoginPage = window.location.pathname.includes('Login.html');
 
     // Página de Cadastro: Carrega dados do cliente
-    if (isCadastroPage) {
-        fetchCliente();
-    }
+    if (isCadastroPage) fetchCliente();
+    if (isAgendarPage) fetchCliente();
 
     // Página de Login: Configura o botão de login
     if (isLoginPage) {
-        const loginButton = document.getElementById('loginButton');
-        if (loginButton) {
-            loginButton.addEventListener('click', login);
+        const botaoLogin = document.getElementById('botaoLogin');
+        if (botaoLogin) {
+            botaoLogin.addEventListener('click', login);
         }
     }
 });

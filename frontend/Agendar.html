@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Pet</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Architects Daughter', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-agendar">
+        <div class="logo-topo">
+            <img src="../images/LOGO.png" alt="LOGO" class="logo"
+                style="margin-left: 75px; width: 200px; height: auto; cursor: pointer;"
+                onclick="window.location.href='index.html'">
+        </div>
+        <div class="caixa-agendar">
+            <h1 class="titulo-conta">Cadastro de Pet</h1>
+            <form action="/enviar" method="POST" enctype="multipart/form-data" class="form-pet">
+                <label for="especie">Qual a espécie do pet?</label>
+                <input type="text" id="especie" name="especie" class="input-agendar" required>
+
+                <label for="raca">Qual a raça do pet?</label>
+                <input type="text" id="raca" name="raca" class="input-agendar">
+
+                <p>Qual o sexo do pet?</p>
+                <label><input type="radio" name="sexo" value="M" required> Macho</label>
+                <label><input type="radio" name="sexo" value="F"> Fêmea</label>
+
+                <label for="peso">Qual o peso do pet (kg)?</label>
+                <input type="number" step="0.01" id="peso" name="peso" class="input-agendar">
+
+                <label for="tamanho">Qual o tamanho do pet?</label>
+                <input type="text" id="tamanho" name="tamanho" class="input-agendar">
+
+                <label for="nome_pet">Qual o nome do pet?</label>
+                <input type="text" id="nome_pet" name="nome_pet" class="input-agendar" required>
+
+                <p>O pet é castrado?</p>
+                <label><input type="radio" name="castrado" value="true"> Sim</label>
+                <label><input type="radio" name="castrado" value="false" checked> Não</label>
+
+                <label for="imagem">Envie uma imagem do pet:</label>
+                <input type="file" id="imagem" name="imagem" class="input-agendar" accept="image/*">
+
+                <button type="submit" class="botao-primario botao-conta">Próximo</button>
+                <button class="botao-primario botao-conta" onclick="window.location.href='index.html'">Voltar</button>
+            </form>
+        </div>
+        <div class="logo-topo">
+            <img src="../images/LOGO.png" alt="LOGO" class="logo"
+                style="margin-left: 75px; width: 200px; height: auto; cursor: pointer;"
+                onclick="window.location.href='index.html'">
+        </div>
+    </div>
+    
+    <script src="../backend/script.js"></script>
+</body>
+
+</html>

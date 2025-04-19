@@ -142,7 +142,7 @@ body {
 }
 
 .botao-primario:focus {
-    outline: 2px solid #0084ff;
+    outline: 2px solid #8d0000;
     outline-offset: 2px;
 }
 
@@ -604,4 +604,68 @@ body {
 
 .dados-input {
     display: none;
+}
+
+
+
+
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ ██████  ████████ ███████ ███    ██ ███████   ██████  ███    ███ ███████ ███    ██ ██████████  ██████
+██    ██ ██       ██      ████   ██ ██    ██ ██    ██ ████  ████ ██      ████   ██     ██     ██    ██
+████████ ██ █████ █████   ██ ██  ██ ██    ██ ████████ ██ ████ ██ █████   ██ ██  ██     ██     ██    ██
+██    ██ ██    ██ ██      ██  ██ ██ ██    ██ ██    ██ ██  ██  ██ ██      ██  ██ ██     ██     ██    ██
+██    ██ ████████ ███████ ██   ████ ███████  ██    ██ ██      ██ ███████ ██   ████     ██      ██████
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+
+
+
+
+
+/* Container principal do formulário */
+.container-agendar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(86, 173, 255);
+    width: 100%;
+}
+
+
+/* Caixa de conteúdo do formulário */
+.caixa-agendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%; /* A caixa vai ocupar 60% da largura da tela */
+    padding: 20px;
+    box-sizing: border-box;
+    border: 4px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+/* Input genérico para formulários */
+.input-agendar {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Architects Daughter', sans-serif;
+}
+
+/* Formulário geral */
+.form-pet {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
 }
