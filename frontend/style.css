@@ -23,8 +23,7 @@
 ██    ██ ███████ ███████ ███████     ██
 
 */
-body 
-{
+body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -41,8 +40,7 @@ body
 
 */
 /* Configuração da barra de menu */
-.barra-cima 
-{
+.barra-cima {
     background-color: rgb(0, 132, 255);
     padding: 15px 0;
     display: flex;
@@ -53,8 +51,7 @@ body
 }
 
 /* Ajuste dos conteúdos dentro da barra de menu */
-.barra-conteudo 
-{
+.barra-conteudo {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -64,24 +61,31 @@ body
 
 /* Placeholder enquanto a logo ainda não é adicionada */
 .logo-container {
-    width: 180px;       /* Largura máxima da logo */
-    height: 60px;       /* Altura máxima da logo */
-    margin-right: auto; /* Mantém alinhado à esquerda */
+    width: 180px;
+    /* Largura máxima da logo */
+    height: 60px;
+    /* Altura máxima da logo */
+    margin-right: auto;
+    /* Mantém alinhado à esquerda */
     display: flex;
-    align-items: center; /* Centraliza verticalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
 }
 
 /* Estilo para a imagem dentro do container */
 .logo-container img {
-    width: 100%;        /* Ocupa 100% da largura do container */
-    height: auto;       /* Altura proporcional */
-    max-height: 100%;   /* Nunca ultrapassa a altura do container */
-    object-fit: contain; /* Mantém proporções sem distorcer */
+    width: 100%;
+    /* Ocupa 100% da largura do container */
+    height: auto;
+    /* Altura proporcional */
+    max-height: 100%;
+    /* Nunca ultrapassa a altura do container */
+    object-fit: contain;
+    /* Mantém proporções sem distorcer */
 }
 
 /* Indicador de que as opçãos no menu (textos e botões) são clicáveis */
-.opcoes-menu 
-{
+.opcoes-menu {
     cursor: pointer;
     margin-right: auto;
 }
@@ -97,8 +101,7 @@ body
 
 */
 /* Estilização dos botões + animação de quando o mouse passa por cima */
-.botao-primario 
-{
+.botao-primario {
     cursor: pointer;
     background-color: rgb(247, 47, 47);
     color: white;
@@ -115,46 +118,39 @@ body
 }
 
 /* Configuração dos botões na barra de menu */
-.botao-primario.menu 
-{
+.botao-primario.menu {
     margin: 0 5px;
     padding: 10px 20px;
 }
 
 /* Configuração dos botões presentes dentro do corpo do HTML */
-.botao-primario.conteudo 
-{
+.botao-primario.conteudo {
     margin: 30px auto;
     display: block;
     width: fit-content;
 }
 
 /* Animações quando o mouse passa por cima do botão */
-.botao-primario:hover 
-{
+.botao-primario:hover {
     background-color: rgb(200, 40, 40);
     transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.botao-primario:active 
-{
+.botao-primario:active {
     transform: scale(0.98);
 }
 
-.botao-primario:focus 
-{
+.botao-primario:focus {
     outline: 2px solid #0084ff;
     outline-offset: 2px;
 }
 
-.botao-conteudo:hover 
-{
+.botao-conteudo:hover {
     background-color: rgb(200, 40, 40);
 }
 
-.botao:hover 
-{
+.botao:hover {
     background-color: rgb(200, 40, 40);
 }
 
@@ -168,14 +164,12 @@ body
 ███████  ██    ██ ███████  ███████    ██   ██    ██ ███████ ██    ██  ██████
 
 */
-.nome-petshop 
-{
+.nome-petshop {
     text-align: center;
     font-size: 600%;
 }
 
-.titulo 
-{
+.titulo {
     display: block;
     width: fit-content;
     margin: 50px auto 0;
@@ -194,15 +188,13 @@ body
 
 */
 /* Configuração do espaço onde ficarão os conteúrdos */
-.saiba-mais-conteudo 
-{
+.saiba-mais-conteudo {
     display: flex;
     width: 100%;
 }
 
 /* Configuração da imagem */
-#saiba-mais-imagem 
-{
+#saiba-mais-imagem {
     margin-left: 120px;
     margin-right: 10px;
     margin-top: 50px;
@@ -210,8 +202,7 @@ body
 }
 
 /* Configuração do texto */
-#saiba-mais-descricao 
-{
+#saiba-mais-descricao {
     max-width: 50%;
     margin-top: 100px;
     margin-left: 100px;
@@ -238,37 +229,31 @@ body
 
 */
 /* Configuração do espaço para o carrossel */
-.carrossel-container 
-{
+.carrossel-container {
     width: 100%;
     position: relative;
 }
 
 /* Configuração do carrossel */
-.adote-conteudo.carrossel 
-{
+.adote-conteudo.carrossel {
     display: flex;
     width: max-content;
     animation: scroll 40s linear infinite;
 }
 
 
-@keyframes scroll 
-{
-    0% 
-    {
+@keyframes scroll {
+    0% {
         transform: translateX(0);
     }
 
-    100% 
-    {
+    100% {
         transform: translateX(calc(-50% - 15px));
     }
 }
 
 /* Configuração das imagens que serão apresentadas no carrosel */
-.carrossel-img 
-{
+.carrossel-img {
     width: 280px;
     height: 200px;
     object-fit: cover;
@@ -279,15 +264,13 @@ body
 }
 
 /* Indicando que quando o mouse passar por alguma imagem, a mesma aumentará levemente seu tamanho */
-.carrossel-img:hover 
-{
+.carrossel-img:hover {
     transform: scale(1.10);
     z-index: 1;
 }
 
 /* Indicando que a animação de carrossel deve parar quando o mouse estiver encima de alguma imagem */
-.adote-conteudo.carrossel:hover 
-{
+.adote-conteudo.carrossel:hover {
     animation-play-state: paused;
 }
 
@@ -302,8 +285,7 @@ body
 
 */
 /* Configuração do espaço que será trabalhado */
-.agende-horario-conteudo 
-{
+.agende-horario-conteudo {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
@@ -324,13 +306,11 @@ body
 }
 
 /* Animação para imagem aumentar de tamanho quando o mouse passar por cima */
-.agende-img:hover 
-{
+.agende-img:hover {
     transform: scale(1.05);
 }
 
-.agendar-horario-descricao 
-{
+.agendar-horario-descricao {
     grid-column: 1 / -1;
     /* Ocupa todas as colunas */
     margin-top: 20px;
@@ -375,8 +355,7 @@ body
 
 */
 /* Container dos botões */
-.botoes-conta 
-{
+.botoes-conta {
     display: flex;
     gap: 10px;
     width: 100%;
@@ -384,8 +363,7 @@ body
 }
 
 /* Botões individuais */
-.botao-conta 
-{
+.botao-conta {
     flex: 1;
     padding: 10px;
     text-align: center;
@@ -399,10 +377,9 @@ body
 ██ ██  ██ ██ ██       ██    ██     ██          ██
 ██ ██   ████ ██        ██████      ██     ███████
 
-*/ 
+*/
 /* Campos de input */
-.input-conta 
-{
+.input-conta {
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
@@ -421,8 +398,7 @@ body
 */
 
 /* Título do formulário */
-.titulo-conta 
-{
+.titulo-conta {
     margin: 0;
     width: 100%;
     text-align: center;
@@ -439,8 +415,7 @@ body
 */
 
 /* Caixa do formulário */
-.caixa-conta 
-{
+.caixa-conta {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -455,8 +430,7 @@ body
 }
 
 /* Container principal do formulário */
-.container-conta 
-{
+.container-conta {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -500,8 +474,7 @@ body
 ███████ ███████     ██     ██ ███████  ██████  ███████     ███████ ███████ ██    ██ ██    ██ ██ ███████
 
 */
-.container-conta 
-{
+.container-conta {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -510,8 +483,7 @@ body
     padding: 20px;
 }
 
-.caixa-conta 
-{
+.caixa-conta {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -532,29 +504,31 @@ body
 .botoes-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza verticalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
     margin-top: 30px;
 }
 
 .botoes-superiores {
     display: flex;
-    justify-content: center; /* Centraliza os botões */
+    justify-content: center;
+    /* Centraliza os botões */
     gap: 10px;
     width: 100%;
 }
 
 /* Container dos botões de edição */
-.botoes-edicao 
-{
+.botoes-edicao {
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    gap: 10px; /* Espaço entre os botões */
+    justify-content: center;
+    /* Centraliza horizontalmente */
+    gap: 10px;
+    /* Espaço entre os botões */
     margin: 20px 0;
 }
 
 /* Ajuste para os botões dentro do formulário de edição */
-#form-edicao .botoes-conta 
-{
+#form-edicao .botoes-conta {
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -564,16 +538,19 @@ body
 /* Container dos botões inferiores */
 .botoes-inferiores {
     display: flex;
-    justify-content: space-between; /* Separa os botões */
+    justify-content: space-between;
+    /* Separa os botões */
     width: 100%;
     margin-top: 20px;
-    gap: 10px; /* Espaço entre os botões */
+    gap: 10px;
+    /* Espaço entre os botões */
 }
 
-/* Estilo para ambos botões */
-.botao-voltar, .botao-logout {
-    flex: 1; /* Ocupam espaço igual */
-    max-width: calc(50% - 5px); /* Metade do espaço menos a metade do gap */
+.botao-logout {
+    flex: 1;
+    /* Ocupam espaço igual */
+    max-width: calc(50% - 5px);
+    /* Metade do espaço menos a metade do gap */
 }
 
 /* Estilo específico do botão Voltar */
@@ -592,47 +569,39 @@ body
 ███████ ███████  ██    ██    ██    ██  ██████
 
 */
-.modo-edicao .dados-texto 
-{
+.modo-edicao .dados-texto {
     display: none;
 }
 
-.modo-edicao .dados-input 
-{
+.modo-edicao .dados-input {
     display: block;
 }
 
-.modo-edicao .botao-voltar 
-{
+.modo-edicao .botao-voltar {
     display: block;
 }
 
 /* Estilo da lista de dados */
-.lista-dados 
-{
+.lista-dados {
     list-style: none;
     padding: 0;
     margin: 20px 0;
 }
 
-.dados-item 
-{
+.dados-item {
     margin-bottom: 15px;
     padding-bottom: 15px;
     border-bottom: 1px solid #ccc;
 }
 
-.dados-item:last-child 
-{
+.dados-item:last-child {
     border-bottom: none;
 }
 
-.dados-texto 
-{
+.dados-texto {
     display: block;
 }
 
-.dados-input 
-{
+.dados-input {
     display: none;
 }

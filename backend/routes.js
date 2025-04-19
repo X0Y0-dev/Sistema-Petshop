@@ -9,25 +9,25 @@ const router = express.Router()
 router.post("/cliente", async (req, res) => {
     try {
         const { nome_cliente, sobrenome_cliente, telefone, cpf, email, senha } = req.body;
-        
+
         const senhaHashed = await bcrypt.hash(senha, 10);
-        
+
         const [result] = await db.execute(
             "INSERT INTO cliente(nome_cliente, sobrenome_cliente, telefone, cpf, email, senha) VALUES (?, ?, ?, ?, ?, ?)",
             [nome_cliente, sobrenome_cliente, telefone, cpf, email, senhaHashed]
         );
-        
-        res.json({ 
-            id_cliente: result.insertId, 
-            nome_cliente, 
-            sobrenome_cliente, 
-            telefone, 
-            cpf, 
-            email 
+
+        res.json({
+            id_cliente: result.insertId,
+            nome_cliente,
+            sobrenome_cliente,
+            telefone,
+            cpf,
+            email
         });
     } catch (error) {
         console.error("Erro detalhado:", error);
-        res.status(500).json({ 
+        res.status(500).json({
             error: error.message,
             stack: error.stack
         });
@@ -97,7 +97,7 @@ router.put("/cliente/:id_cliente", async (req, res) => {
             "UPDATE cliente SET nome_cliente = ?, sobrenome_cliente = ?, telefone = ?, cpf = ?, email = ? WHERE id_cliente = ?",
             [nome_cliente, sobrenome_cliente, telefone, cpf, email, id_cliente]
         );
-        
+
         res.status(200).json({ id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email });
     } catch (error) {
         console.error("Database error:", error);
