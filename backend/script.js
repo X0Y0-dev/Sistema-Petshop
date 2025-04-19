@@ -157,163 +157,26 @@ async function validarDados(){
     }
 }
 
-/*
-async function validarDados(prefixo = "") {
-    const nome = document.getElementById(`${prefixo}nome_cliente`)?.value;
-    const sobrenome = document.getElementById(`${prefixo}sobrenome_cliente`)?.value;
-    const telefone = document.getElementById(`${prefixo}telefone`)?.value;
-    const cpf = document.getElementById(`${prefixo}cpf`)?.value;
-    const email = document.getElementById(`${prefixo}email`)?.value;
-    const senha = document.getElementById(`${prefixo}senha`)?.value;
-
-    if ([nome, sobrenome, telefone, cpf, email, senha].includes(undefined)) return false;
-
-    if (!nome || !sobrenome || !telefone || !cpf || !email || !senha) {
-        alert("Por favor, preencha todos os campos solicitados.");
-        return false;
-    }
-
-    if (nome.length < 3 || nome.length > 50) {
-        alert("O nome de usuário deve ter entre 3 a 50 caracteres.");
-        return false;
-    }
-
-    if (sobrenome.length < 3 || sobrenome.length > 50) {
-        alert("O sobrenome de usuário deve ter entre 3 a 50 caracteres.");
-        return false;
-    }
-
-    if (telefone.length < 17) {
-        alert("Telefone inválido. O telefone deve ser feito no seguinte modelo: +99 (99) 99999-9999.");
-        return false;
-    }
-
-    if (!validarCPF(cpf)) {
-        alert("CPF inválido. O CPF deve ser feito no seguinte modelo: 999.999.999-99.");
-        return false;
-    }
-
-    if (email.length < 8 || email.length > 100) {
-        alert("E-mail inválido. O e-mail deve ter entre 8 e 100 caracteres.");
-        return false;
-    }
-
-    if (!emailValido(email)) {
-        alert("Por favor, insira um e-mail válido.");
-        return false;
-    }
-
-    if (senha.length < 8 || senha.length > 50 || !senha.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/)) {
-        alert("Senha inválida. A senha deve ter 8 a 50 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
-        return false;
-    }
-
-    //validação de dados
-    return {
-        nome_cliente: nome,
-        sobrenome_cliente,
-        telefone,
-        cpf,
-        email,
-        senha
-    };
-}
-
-async function criarEatualizarCliente() {
-    // Verifica se estamos na página de cadastro
+async function criarCliente() {
     const dados = await validarDados();
     if (!dados) return;
-    
-    // --- Requisição à API ---
+
     try {
-        let url = API_URL;
-        let method = "POST";
-
-        // Se estiver editando, muda a URL e o método
-        if (editingId) {
-            url = `${API_URL}/${editingId}`;
-            method = "PUT";
-        }
-
-        const response = await fetch(url, {
-            method: method,
+        const response = await fetch(API_URL, {
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dados)
         });
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || `Falha ao ${editingId ? 'atualizar' : 'criar'} cliente`);
+            throw new Error(errorData.error || "Falha ao criar cliente");
         }
 
-        alert(`Cliente ${editingId ? 'atualizado' : 'criado'} com sucesso!`);
+        alert("Cliente criado com sucesso!");
+        alert("Por favor, efetue o login!");
+        window.location.href = "Login.html";
 
-        // Limpa o formulário e o editingId após sucesso
-        if (!editingId) {
-            alert("Por favor, efetue o login!");
-            window.location.href = "Login.html";
-        } else {
-            document.getElementById("nome_cliente").value = "";
-            document.getElementById("sobrenome_cliente").value = "";
-            document.getElementById("telefone").value = "";
-            document.getElementById("cpf").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("senha").value = "";
-            document.getElementById("addButton").innerText = "Adicionar";
-            editingId = null;
-            await fetchCliente();
-        }
-    } catch (error) {
-        console.error("Erro detalhado:", error);
-        alert(error.message);
-    }
-}
-*/
-
-async function criarEatualizarCliente() {
-    // Verifica se estamos na página de cadastro
-    const dados = await validarDados();
-    if (!dados) return;
-
-    // --- Requisição à API ---
-    try {
-        let url = API_URL;
-        let method = "POST";
-
-        // Se estiver editando, muda a URL e o método
-        if (editingId) {
-            url = `${API_URL}/${editingId}`;
-            method = "PUT";
-        }
-
-        const response = await fetch(url, {
-            method: method,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dados)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || `Falha ao ${editingId ? 'atualizar' : 'criar'} cliente`);
-        }
-
-        alert(`Cliente ${editingId ? 'atualizado' : 'criado'} com sucesso!`);
-
-        // Limpa o formulário e o editingId após sucesso
-        if (!editingId) {
-            alert("Por favor, efetue o login!");
-            window.location.href = "Login.html";
-        } else {
-            document.getElementById("nome_cliente").value = "";
-            document.getElementById("sobrenome_cliente").value = "";
-            document.getElementById("telefone").value = "";
-            document.getElementById("cpf").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("senha").value = "";
-            document.getElementById("addButton").innerText = "Adicionar";
-            editingId = null;
-            await fetchCliente();
-        }
     } catch (error) {
         console.error("Erro detalhado:", error);
         alert(error.message);
