@@ -37,7 +37,7 @@ async function fetchCliente() {
                 
                 <div class="botoes-container">
                     <div class="botoes-superiores botoes-conta">
-                        <button class="botao-primario btn-editar" onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}', '${escapeHtml(cliente.senha)}')">Editar</button>
+                        <button class="botao-primario btn-editar" onclick="editarCliente('${cliente.id_cliente}', '${escapeHtml(cliente.nome_cliente)}', '${escapeHtml(cliente.sobrenome_cliente)}', '${escapeHtml(cliente.telefone)}', '${escapeHtml(cliente.cpf)}', '${escapeHtml(cliente.email)}')">Editar</button>
                         <button class="botao-primario" onclick="deletarCliente('${cliente.id_cliente}')">Excluir</button>
                     </div>
                     <div class="botoes-inferiores">
@@ -212,8 +212,8 @@ async function deletarCliente(id) {
     }
 }
 
-function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha) {
-    console.log("Editando:", { id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email, senha }); // Debug
+function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email) {
+    console.log("Editando:", { id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email }); // Debug
 
     const formEdicao = document.getElementById("form-edicao");
     if (formEdicao) {
@@ -223,7 +223,6 @@ function editarCliente(id_cliente, nome_cliente, sobrenome_cliente, telefone, cp
         document.getElementById("edit_telefone").value = telefone || '';
         document.getElementById("edit_cpf").value = cpf || '';
         document.getElementById("edit_email").value = email || '';
-        document.getElementById("edit_senha").value = senha || '';
 
         // Remove event listeners antigos
         const btnAtualizar = document.getElementById("btn-atualizar");
@@ -253,7 +252,6 @@ async function atualizarCliente(id) {
                 telefone: document.getElementById("edit_telefone").value,
                 cpf: document.getElementById("edit_cpf").value,
                 email: document.getElementById("edit_email").value,
-                senha: document.getElementById("edit_senha").value
             })
         });
 

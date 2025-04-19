@@ -34,6 +34,7 @@ router.post("/cliente", async (req, res) => {
     }
 });
 
+//LOGIN
 router.post("/cliente/login", async (req, res) => {
     try {
         const { email, senha } = req.body;
@@ -90,11 +91,11 @@ router.get("/cliente", async (req, res) => {
 router.put("/cliente/:id_cliente", async (req, res) => {
     try {
         const { id_cliente } = req.params;
-        const { nome_cliente, sobrenome_cliente, telefone, cpf, email, senha } = req.body;
+        const { nome_cliente, sobrenome_cliente, telefone, cpf, email } = req.body;
 
         const [result] = await db.execute(
-            "UPDATE cliente SET nome_cliente = ?, sobrenome_cliente = ?, telefone = ?, cpf = ?, email = ?, senha = ? WHERE id_cliente = ?",
-            [nome_cliente, sobrenome_cliente, telefone, cpf, email, senha, id_cliente]
+            "UPDATE cliente SET nome_cliente = ?, sobrenome_cliente = ?, telefone = ?, cpf = ?, email = ? WHERE id_cliente = ?",
+            [nome_cliente, sobrenome_cliente, telefone, cpf, email, id_cliente]
         );
         
         res.status(200).json({ id_cliente, nome_cliente, sobrenome_cliente, telefone, cpf, email });
