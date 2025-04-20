@@ -1,11 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Agendamento de serviços</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Architects Daughter', sans-serif;
+        }
+
+        h2 {
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>PICA GIGANTESCA GOZANDO</h1>
+    <div class="container-agendar">
+        <div class="logo-topo">
+            <img src="../images/LOGO.png" alt="LOGO" class="logo"
+                style="margin-left: 75px; width: 200px; height: auto; cursor: pointer;"
+                onclick="window.location.href='index.html'">
+        </div>
+        <div class="caixa-agendar">
+            <h2>Escolha o Serviço</h2>
+            <form id="form-servico">
+                <fieldset class="opcao-agendar">
+                    <legend class="titulo-servico">Serviços disponíveis</legend>
+                    <label><input class="descri-servico" type="radio" name="servico" value="Banho - R$80,00 - 1:30 horas"> Banho - R$80,00 (1h30)</label><br>
+                    <label><input class="descri-servico" type="radio" name="servico" value="Tosa - R$120,00 - 3 horas"> Tosa - R$120,00 (3h)</label><br>
+                    <label><input class="descri-servico" type="radio" name="servico" value="Banho e Tosa - R$230,00 - 4 horas"> Banho e Tosa - R$230,00 (4h)</label><br>
+                    <label><input class="descri-servico" type="radio" name="servico" value="Tratamento - R$150,00 - 3 horas"> Tratamento - R$150,00 (3h)</label><br>
+                    <label><input class="descri-servico" type="radio" name="servico" value="Castração - R$180,00 - 4 horas"> Castração - R$180,00 (4h)</label><br>
+                    <label><input class="descri-servico" type="radio" name="servico" value="Vacinação - R$50,00 - na hora"> Vacinação - R$50,00 (na hora)</label>
+                </fieldset>
+
+                <h2>Escolha o Dia</h2>
+                <fieldset class="opcao-agendar">
+                    <legend class="titulo-servico">Dias disponíveis</legend>
+                    <label><input class="descri-servico" type="radio" name="dia" value="Segunda"> Segunda-feira</label><br>
+                    <label><input class="descri-servico" type="radio" name="dia" value="Terça"> Terça-feira</label><br>
+                    <label><input class="descri-servico" type="radio" name="dia" value="Quarta"> Quarta-feira</label><br>
+                    <label><input class="descri-servico" type="radio" name="dia" value="Quinta"> Quinta-feira</label><br>
+                    <label><input class="descri-servico" type="radio" name="dia" value="Sexta"> Sexta-feira</label>
+                </fieldset>
+
+                <h2>Escolha o Horário</h2>
+                <fieldset class="opcao-agendar" class="opcao-agendar">
+                    <legend class="titulo-servico">Horários disponíveis</legend>
+                    <select class="select-horario" id="horario" name="horario">
+                        <option value="" disabled selected>Selecione o horário</option>
+                        <!-- Gera os horários automaticamente de 07:00 até 19:00 via JavaScript -->
+                    </select>
+                </fieldset>
+
+                <br>
+                <button type="submit" class="botao-primario conteudo">Agendar Serviço</button>
+            </form>
+        </div>
+        <div class="logo-topo">
+            <img src="../images/LOGO.png" alt="LOGO" class="logo"
+                style="margin-left: 75px; width: 200px; height: auto; cursor: pointer;"
+                onclick="window.location.href='Agendar.html'">
+        </div>
+    </div>
+
+    <script>
+        // Preenche o select de horário com opções de 07:00 até 19:00
+        const selectHorario = document.getElementById("horario");
+        for (let hora = 7; hora <= 19; hora++) {
+            const option = document.createElement("option");
+            option.value = `${hora.toString().padStart(2, '0')}:00`;
+            option.text = `${hora.toString().padStart(2, '0')}:00`;
+            selectHorario.appendChild(option);
+        }
+    </script>
 </body>
+
 </html>
