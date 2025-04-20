@@ -430,7 +430,6 @@ async function criarPet(event) {
     }
 }
 
-
 //função para decodificar o token
 function getIdFromToken(token) {
     try {

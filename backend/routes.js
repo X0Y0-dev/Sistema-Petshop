@@ -82,6 +82,20 @@ router.post("/pet", async (req, res) => {
     }
 });
 
+//SERVIÇO
+router.post("/servico", async (req, res) => {
+    try {
+        const { id_servico, tipo_servico, data_hora, valor, observacoes } = req.body;
+    } catch (error) {
+        console.error("Erro detalhado:", error);
+        res.status(500).json({
+            success: false,
+            error: error.message,
+            stack: error.stack
+        });
+    }
+});
+
 //LOGIN
 router.post("/cliente/login", async (req, res) => {
     try {
