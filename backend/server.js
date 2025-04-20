@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000
 app.use(cors())
 app.use(express.json())
 app.use("/api", routes)
+app.use('/uploads', express.static('uploads'));
 
 // Conexão
 app.listen(port, () => {

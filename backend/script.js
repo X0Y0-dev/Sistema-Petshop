@@ -1,5 +1,6 @@
 const API_CLIENTE = "http://localhost:3000/api/cliente"
 const API_PET = "http://localhost:3000/api/pet"
+const API_UPLOADS = "http://localhost:3000/api/uploads"
 let editingId = null
 
 
@@ -321,8 +322,8 @@ async function validarDadosPet() {
     }
 
     // Validação dos campos obrigatórios
-    if (!nome_pet || 
-        !especie || 
+    if (!nome_pet ||
+        !especie ||
         !sexo) {
         alert("Por favor, preencha os campos obrigatórios: Nome, Espécie e Sexo.");
         return;
@@ -376,33 +377,47 @@ async function criarPet(event) {
     const dadosPet = await validarDadosPet();
     if (!dadosPet) return;
 
-    try {
-        const token = JSON.parse(localStorage.getItem('token'));
-        const id_cliente = getIdFromToken(token); // <- você pode extrair isso do token JWT, se estiver codificado com o `id`
+    const formData = new FormData();
+    const imagem = document.getElementById("imagem").files[0];
 
-        const dadosComCliente = {
-            ...dadosPet,
-            id_cliente
-        };
-        console.log("Enviando para o banco:", dadosComCliente);
-        const res = await fetch(API_PET, {
+    if (imagem) {
+        formData.append("imagem", imagem);
+
+        const res = await fetch("http://localhost:3000/api/uploads", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dadosComCliente)
+            body: formData
         });
-
-        if (!res.ok) throw new Error("Erro ao cadastrar o pet.");
-
-        const pet = await res.json();
-        if(pet.success) {
-            alert("Pet cadastrado com sucesso!");
-            localStorage.setItem('pet', JSON.stringify(pet));
-            window.location.href = "Servico.html";
+        console.log("Arquivo recebido:", req.file);
+        const resposta = await res.json();
+        if (resposta.success) {
+            dadosPet.imagem = resposta.caminho_imagem;
+        } else {
+            alert("Erro ao enviar a imagem.");
+            return;
         }
+    }
 
-    } catch (error) {
-        console.error("Erro ao cadastrar pet:", error);
-        alert("Erro ao cadastrar o pet.");
+    const token = JSON.parse(localStorage.getItem('token'));
+    const id_cliente = getIdFromToken(token); // <- você pode extrair isso do token JWT, se estiver codificado com o `id`
+
+    const dadosComCliente = {
+        ...dadosPet,
+        id_cliente
+    };
+
+    const petRes = await fetch(API_PET, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dadosComCliente)
+    });
+
+    if (!res.ok) throw new Error("Erro ao cadastrar o pet.");
+
+    const pet = await petRes.json();
+    if (pet.success) {
+        alert("Pet cadastrado com sucesso!");
+        localStorage.setItem('pet', JSON.stringify(pet));
+        window.location.href = "Servico.html";
     }
 }
 

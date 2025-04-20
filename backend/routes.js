@@ -2,10 +2,25 @@ import express from 'express'
 import db from './db.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import multer from 'multer';
+import path from 'path';
 
 const router = express.Router()
 
-// CREATE
+// IMAGEM
+const salvarImg = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // pasta onde vai salvar
+    },
+    filename: (req, file, cb) => {
+        const nomeUnico = Date.now() + '-' + file.originalname;
+        cb(null, nomeUnico);
+    }
+});
+const upload = multer({ storage: salvarImg });
+
+
+// CADASTRO
 router.post("/cliente", async (req, res) => {
     try {
         const { nome_cliente, sobrenome_cliente, telefone, cpf, email, senha } = req.body;
@@ -105,6 +120,28 @@ router.post("/cliente/login", async (req, res) => {
     } catch (error) {
         console.error("Erro no login:", error);
         res.status(500).json({ error: error.message });
+    }
+});
+
+//IMAGEM
+router.post("/uploads", upload.single("imagem"), async (req, res) => {
+    try {
+        const { filename, path: caminhoImagem } = req.file;
+
+        const [result] = await db.execute(
+            "INSERT INTO imagens (nome_arquivo, caminho_imagem) VALUES (?, ?)",
+            [filename, caminhoImagem]
+        );
+
+        res.json({
+            success: true,
+            id_imagem: result.insertId,
+            nome_arquivo: filename,
+            caminho_imagem: caminhoImagem
+        });
+    } catch (error) {
+        console.error("Erro no upload de imagem:", error);
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
