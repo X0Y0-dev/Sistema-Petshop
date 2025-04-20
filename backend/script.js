@@ -387,7 +387,7 @@ async function criarPet(event) {
             method: "POST",
             body: formData
         });
-        console.log("Arquivo recebido:", req.file);
+
         const resposta = await res.json();
         if (resposta.success) {
             dadosPet.imagem = resposta.caminho_imagem;
@@ -398,7 +398,7 @@ async function criarPet(event) {
     }
 
     const token = JSON.parse(localStorage.getItem('token'));
-    const id_cliente = getIdFromToken(token); // <- você pode extrair isso do token JWT, se estiver codificado com o `id`
+    const id_cliente = getIdFromToken(token);
 
     const dadosComCliente = {
         ...dadosPet,
@@ -411,15 +411,25 @@ async function criarPet(event) {
         body: JSON.stringify(dadosComCliente)
     });
 
-    if (!res.ok) throw new Error("Erro ao cadastrar o pet.");
+    // Aqui está a correção importante 👇
+    if (!petRes.ok) {
+        alert("Erro ao cadastrar o pet.");
+        return;
+    }
 
     const pet = await petRes.json();
-    if (pet.success) {
+    console.log("Resposta do backend:", pet);
+
+
+    if (pet && pet.id_pet) {
         alert("Pet cadastrado com sucesso!");
         localStorage.setItem('pet', JSON.stringify(pet));
-        window.location.href = "Servico.html";
+        window.location.href = "./Servico.html"; // ou "/Servico.html"
+    } else {
+        alert("Algo deu errado ao salvar o pet.");
     }
 }
+
 
 //função para decodificar o token
 function getIdFromToken(token) {
