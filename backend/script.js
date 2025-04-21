@@ -426,10 +426,6 @@ async function criarPet(event) {
         alert("Pet cadastrado com sucesso!");
         localStorage.setItem('pet', JSON.stringify(pet));
         console.log("Tudo certo, redirecionando para Servico.html...");
-        
-        setTimeout(() => {
-            location.assign("Servico.html");
-        }, 300); // Pequeno delay para dar tempo do navegador processar tudo
     } else {
         alert("Algo deu errado ao salvar o pet.");
     }
@@ -454,6 +450,12 @@ function validarServico() {
     let diasParaSomar = (diasSemana[dia] + 7 - (hojeDia === 0 ? 7 : hojeDia)) % 7;
     if (diasParaSomar === 0) diasParaSomar = 7;
 
+    console.log("Valor do horário:", horario);
+    if (!horario.includes(":")) {
+        alert("Formato de horário inválido.");
+        return null;
+    }
+
     const dataSelecionada = new Date();
     dataSelecionada.setDate(hoje.getDate() + diasParaSomar);
     const [hora, minuto] = horario.split(":");
@@ -473,7 +475,7 @@ function validarServico() {
     const tipo = tipo_servico.split(" - ")[0];
 
     return {
-        tipo_servico,
+        tipo_servico: tipo_servico,
         data_hora,
         valor: valores[tipo] || 0,
         observacoes
@@ -481,13 +483,20 @@ function validarServico() {
 }
 
 // Função para criar o serviço
-async function criarServico(event) {
-    event.preventDefault();
-
+async function criarServico() {
     const dados = validarServico();
-    if (!dados) return;
+    console.log("Dados a serem enviados para API_SERVICO:", dados);
+    if (!dados) return false;
 
     dados.id_petshop = 1;
+
+    const pet = JSON.parse(localStorage.getItem("pet"));
+    if (!pet || !pet.id_pet) {
+        alert("Erro ao obter o pet para vincular ao serviço.");
+        return false;
+    }
+
+    dados.id_pet = pet.id_pet;
 
     try {
         const res = await fetch(API_SERVICO, {
@@ -496,34 +505,46 @@ async function criarServico(event) {
             body: JSON.stringify(dados)
         });
 
-        if (!res.ok) throw new Error("Erro ao registrar serviço");
+        if (!res.ok) {
+            const erroJson = await res.json();
+            console.error("Erro da API:", erroJson.error);
+            return false;
+        }
 
         const resposta = await res.json();
         if (resposta.success) {
-            alert("Serviço agendado com sucesso!");
-
-            // 🧠 Recupera serviços anteriores, se existirem
             const servicosSalvos = JSON.parse(localStorage.getItem('servicos')) || [];
-
-            // 🐾 Pega o pet do localStorage
-            const pet = JSON.parse(localStorage.getItem('pet'));
-
-            // 📦 Monta um novo objeto completo para salvar
-            const novoServico = {
-                ...resposta, // inclui id_servico, tipo_servico, data_hora, valor, observacoes, etc.
-                pet // associa o serviço ao pet cadastrado antes
-            };
-
-            // 💾 Atualiza e salva no localStorage
+            const novoServico = { ...resposta, pet };
             servicosSalvos.push(novoServico);
             localStorage.setItem('servicos', JSON.stringify(servicosSalvos));
-
-            // ✅ Redireciona
-            window.location.href = "Agendados.html";
+            return true;
+        } else {
+            console.error("Erro no JSON de resposta:", resposta);
+            return false;
         }
     } catch (error) {
         console.error("Erro ao enviar serviço:", error);
-        alert("Erro ao enviar serviço.");
+        return false;
+    }
+}
+
+async function processarAgendamento(event) {
+    event.preventDefault();
+
+    await criarPet(event);
+    const pet = JSON.parse(localStorage.getItem("pet"));
+
+    if (!pet || !pet.id_pet) {
+        alert("Erro ao obter os dados do pet após cadastro.");
+        return;
+    }
+
+    const sucessoServico = await criarServico(); // sem o event, pois já usamos ele antes
+    if (sucessoServico) {
+        alert("Agendamento criado com sucesso!");
+        window.location.href = "Agendados.html";
+    } else {
+        alert("Não foi possível criar o agendamento. Tente novamente.");
     }
 }
 

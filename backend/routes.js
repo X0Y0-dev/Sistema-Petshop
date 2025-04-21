@@ -74,7 +74,7 @@ router.post("/pet", async (req, res) => {
             castrado,
             id_imagem
         });
-        
+
     } catch (error) {
         console.error("Erro detalhado:", error);
         res.status(500).json({
@@ -88,13 +88,13 @@ router.post("/pet", async (req, res) => {
 //SERVIÇO
 router.post("/servico", async (req, res) => {
     try {
-        const { tipo_servico, data_hora, valor, observacoes, id_petshop } = req.body;
+        const { tipo_servico, data_hora, valor, observacoes, id_petshop, id_pet } = req.body;
         console.log("Dados recebidos no serviço:", req.body);
 
         const [result] = await db.execute(
-            `INSERT INTO servico (tipo_servico, data_hora, valor, observacoes, id_petshop)
-             VALUES (?, ?, ?, ?, ?)`,
-            [tipo_servico, data_hora, valor, observacoes, id_petshop]
+            `INSERT INTO servico (tipo_servico, data_hora, valor, observacoes, id_petshop, id_pet)
+             VALUES (?, ?, ?, ?, ?, ?)`,
+            [tipo_servico, data_hora, valor, observacoes, id_petshop, id_pet]
         );
 
         res.json({
