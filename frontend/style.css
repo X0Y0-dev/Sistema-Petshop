@@ -623,36 +623,40 @@ body {
 
 
 
-/* Container principal do formulário */
 .container-agendar, .conteiner-agendados {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
+    gap: 10px;
+    padding: 40px;
     min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     background-color: rgb(86, 173, 255);
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
-    width: 100%;
+    box-sizing: border-box;
+    position: relative;
 }
 
-
-/* Caixa de conteúdo do formulário */
-.caixa-agendar, .caixa-agendados {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 60%; /* A caixa vai ocupar 60% da largura da tela */
+/* Caixa de conteúdo do formulário (PET e SERVIÇO) */
+.caixa-agendar, .caixa-servico, .caixa-agendados {
+    flex: 1;
+    max-width: 600px;
     padding: 20px;
     box-sizing: border-box;
     border: 4px solid #ccc;
     border-radius: 8px;
     background-color: #ffffff;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.5);
 }
 
-/* Input genérico para formulários */
+/* Formulário de Pet */
+.form-pet {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Input genérico */
 .input-agendar {
     width: 100%;
     padding: 10px;
@@ -662,70 +666,19 @@ body {
     font-family: 'Architects Daughter', sans-serif;
 }
 
-/* Formulário geral */
-.form-pet {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-}
-
-
-
-
-
-/*
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-███████ ███████ ███████  ██     ██ ██ ███████  ██████  ███████
-██      ██      ██    ██ ██     ██ ██ ██      ██    ██ ██
-███████ █████   ███████   ██   ██  ██ ██      ██    ██ ███████
-     ██ ██      ██    ██   ██ ██   ██ ███████ ██    ██      ██
-███████ ███████ ██    ██    ███    ██    ██    ██████  ███████
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*/
-
-
-
-
+/* Caixa de Serviço como coluna com espaçamento */
 .caixa-servico {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr auto; /* Linhas para conteúdo, espaço extra e botões */
-    gap: 30px;
-    width: 60%;
-    padding: 20px;
-    box-sizing: border-box;
-    border: 4px solid #ccc;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
-}
-
-.conteudo-principal {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-}
-
-.area-observacoes {
-    grid-column: 2;
-    grid-row: 1 / span 2;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
+
 
 .opcao-agendar {
     border: 2px solid #add8e6;
     border-radius: 8px;
     background-color: #f7fbff;
-    margin-bottom: 20px;
-}
-
-.opcao-agendar-direita {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    padding: 10px;
 }
 
 .titulo-servico {
@@ -734,9 +687,25 @@ body {
     font-size: 1.2rem;
 }
 
-.select-horario, .descri-servico[type="radio"] {
-    margin-top: 5px;
-    cursor: pointer;
+.conteudo-agendamento {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* <- força mesma altura */
+    gap: 40px;
+    width: 100%;
+}
+
+.servico-botoes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px; /* ou reduza ainda mais, tipo 5px */
+    margin-bottom: -10px; /* levanta os botões um pouco */
+}
+
+h2{
+    margin-bottom: 0px;
+    margin-top: 5px
 }
 
 .select-horario {
@@ -749,14 +718,11 @@ body {
     box-sizing: border-box;
 }
 
-.servico-botoes {
-    grid-column: 1 / span 2;
-    grid-row: 3;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
+
+.area-observacoes {
+    flex-grow: 1;
 }
+
 
 .campo-observacoes {
     width: 100%;
