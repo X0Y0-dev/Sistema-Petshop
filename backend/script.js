@@ -391,7 +391,7 @@ async function criarPet(event) {
 
         const resposta = await res.json();
         if (resposta.success) {
-            dadosPet.imagem = resposta.caminho_imagem;
+            dadosPet.id_imagem = resposta.id_imagem;
         } else {
             alert("Erro ao enviar a imagem.");
             return;
@@ -425,7 +425,11 @@ async function criarPet(event) {
     if (pet && pet.id_pet) {
         alert("Pet cadastrado com sucesso!");
         localStorage.setItem('pet', JSON.stringify(pet));
-        window.location.href = "./Servico.html"; // ou "/Servico.html"
+        console.log("Tudo certo, redirecionando para Servico.html...");
+        
+        setTimeout(() => {
+            location.assign("Servico.html");
+        }, 300); // Pequeno delay para dar tempo do navegador processar tudo
     } else {
         alert("Algo deu errado ao salvar o pet.");
     }
@@ -497,6 +501,24 @@ async function criarServico(event) {
         const resposta = await res.json();
         if (resposta.success) {
             alert("Serviço agendado com sucesso!");
+
+            // 🧠 Recupera serviços anteriores, se existirem
+            const servicosSalvos = JSON.parse(localStorage.getItem('servicos')) || [];
+
+            // 🐾 Pega o pet do localStorage
+            const pet = JSON.parse(localStorage.getItem('pet'));
+
+            // 📦 Monta um novo objeto completo para salvar
+            const novoServico = {
+                ...resposta, // inclui id_servico, tipo_servico, data_hora, valor, observacoes, etc.
+                pet // associa o serviço ao pet cadastrado antes
+            };
+
+            // 💾 Atualiza e salva no localStorage
+            servicosSalvos.push(novoServico);
+            localStorage.setItem('servicos', JSON.stringify(servicosSalvos));
+
+            // ✅ Redireciona
             window.location.href = "Agendados.html";
         }
     } catch (error) {
@@ -580,10 +602,12 @@ async function verificarLogin(event) {
         }
     } else {
         // Usuário não está logado - mostra alerta e redireciona para login
-        alert("Para ver os dados de sua conta, você precisa efetuar o login!");
+        alert("Para acessar essa área, você precisa efetuar o login!");
         window.location.href = 'Login.html';
     }
 }
+
+//EVENT LISTENER PARA REDIRECIONAR BOTÕES
 document.addEventListener('DOMContentLoaded', () => {
     const botoesProtegidos = document.querySelectorAll("[redirecionar-destino]");
 
@@ -609,5 +633,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+//EVENT LISTENER PARA CRIAR A PÁGINA DE PETS AGENDADOS
+/*document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".caixa-agendados");
+
+    const agendamentos = JSON.parse(localStorage.getItem("servicos")) || [];
+
+    if (agendamentos.length === 0) {
+        container.innerHTML += "<p>Sem agendamentos encontrados.</p>";
+        return;
+    }
+
+    agendamentos.forEach((servico, index) => {
+        const bloco = document.createElement("div");
+        bloco.classList.add("bloco-agendamento");
+        bloco.innerHTML = `
+            <h2>${servico.pet?.nome_pet || "Pet Desconhecido"}</h2>
+            <p><strong>Serviço:</strong> ${servico.tipo_servico}</p>
+            <p><strong>Data e Hora:</strong> ${servico.data_hora}</p>
+            <p><strong>Valor:</strong> R$ ${parseFloat(servico.valor).toFixed(2)}</p>
+            <p><strong>Observações:</strong> ${servico.observacoes || "Nenhuma."}</p>
+            <div class="botoes-agendamento">
+                <button class="botao-primario conteudo" onclick="editarAgendamento(${index})">Editar</button>
+                <button class="botao-primario conteudo" onclick="excluirAgendamento(${index})">Excluir</button>
+            </div>
+        `;
+        container.appendChild(bloco);
+    });
+});*/
+
+function excluirAgendamento(index) {
+    const confirmacao = confirm("Tem certeza que deseja excluir este agendamento?");
+    if (!confirmacao) return;
+
+    const servicos = JSON.parse(localStorage.getItem("servicos")) || [];
+    servicos.splice(index, 1);
+    localStorage.setItem("servicos", JSON.stringify(servicos));
+    location.reload();
+}
+
+function editarAgendamento(index) {
+    alert("Função de edição ainda não implementada! Mas já estamos quase laaaa ✨");
+}
+
+//EVENT LISTENER PARA ARRUMAR A PÁGINA DE AGENDAR PET
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".form-pet");
+    if (form) {
+        form.addEventListener("submit", criarPet);
+    }
+});
+
 
 fetchCliente()

@@ -624,7 +624,7 @@ body {
 
 
 /* Container principal do formulário */
-.container-agendar {
+.container-agendar, .conteiner-agendados {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -639,7 +639,7 @@ body {
 
 
 /* Caixa de conteúdo do formulário */
-.caixa-agendar {
+.caixa-agendar, .caixa-agendados {
     display: flex;
     flex-direction: column;
     align-items: center;

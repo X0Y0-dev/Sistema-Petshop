@@ -23,7 +23,7 @@
         </div>
         <div class="caixa-agendar">
             <h1 class="titulo-conta">Cadastro de Pet</h1>
-            <form class="form-pet" enctype="multipart/form-data">
+            <form class="form-pet" enctype="multipart/form-data" id="form-pet">
 
                 <label for="nome_pet">Qual o nome do pet?</label>
                 <input type="text" id="nome_pet" name="nome_pet" class="input-agendar" required>
@@ -55,8 +55,8 @@
                 <label for="imagem">Envie uma imagem do pet:</label>
                 <input type="file" id="imagem" name="imagem" class="input-agendar" accept="image/*">
 
-                <button type="button" class="botao-primario botao-conta" onclick="criarPet(event)">Próximo</button>
-                <button class="botao-primario botao-conta" onclick="window.location.href='index.html'">Voltar</button>
+                <button type="submit" class="botao-primario botao-conta">Próximo</button>
+    <button type="button" class="botao-primario botao-conta" onclick="window.location.href='index.html'">Voltar</button>
             </form>
         </div>
         <div class="logo-topo">

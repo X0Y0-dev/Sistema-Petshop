@@ -52,13 +52,14 @@ router.post("/cliente", async (req, res) => {
 //PET
 router.post("/pet", async (req, res) => {
     try {
-        const { id_cliente, nome_pet, especie, raca, sexo, peso, tamanho, castrado } = req.body;
+        const { id_cliente, nome_pet, especie, raca, sexo, peso, tamanho, castrado, id_imagem } = req.body;
 
         const [result] = await db.execute(
-            `INSERT INTO pet (id_cliente, nome_pet, especie, raca, sexo, peso, tamanho, castrado) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [id_cliente, nome_pet, especie, raca, sexo, peso, tamanho, castrado]
+            `INSERT INTO pet (id_cliente, nome_pet, especie, raca, sexo, peso, tamanho, castrado, id_imagem) 
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [id_cliente, nome_pet, especie, raca, sexo, peso, tamanho, castrado, id_imagem]
         );
+
 
         res.json({
             success: true,
@@ -70,8 +71,10 @@ router.post("/pet", async (req, res) => {
             sexo,
             peso,
             tamanho,
-            castrado
+            castrado,
+            id_imagem
         });
+        
     } catch (error) {
         console.error("Erro detalhado:", error);
         res.status(500).json({
@@ -140,7 +143,7 @@ router.post("/cliente/login", async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
-        
+
 
         // 4. Retorna o usuário e o token
         res.json({ success: true, user: cliente, token });
