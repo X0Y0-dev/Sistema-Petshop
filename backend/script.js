@@ -513,10 +513,11 @@ async function criarServico() {
 
         const resposta = await res.json();
         if (resposta.success) {
-            const servicosSalvos = JSON.parse(localStorage.getItem('servicos')) || [];
             const novoServico = { ...resposta, pet };
-            servicosSalvos.push(novoServico);
-            localStorage.setItem('servicos', JSON.stringify(servicosSalvos));
+
+            // Salva o serviço diretamente no localStorage com uma chave única
+            localStorage.setItem('servico', JSON.stringify(novoServico));
+
             return true;
         } else {
             console.error("Erro no JSON de resposta:", resposta);
@@ -527,6 +528,7 @@ async function criarServico() {
         return false;
     }
 }
+
 
 async function processarAgendamento(event) {
     event.preventDefault();
@@ -688,9 +690,9 @@ function excluirAgendamento(index) {
     const confirmacao = confirm("Tem certeza que deseja excluir este agendamento?");
     if (!confirmacao) return;
 
-    const servicos = JSON.parse(localStorage.getItem("servicos")) || [];
+    const servicos = JSON.parse(localStorage.getItem("servico")) || [];
     servicos.splice(index, 1);
-    localStorage.setItem("servicos", JSON.stringify(servicos));
+    localStorage.setItem("servico", JSON.stringify(servico));
     location.reload();
 }
 
