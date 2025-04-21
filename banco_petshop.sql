@@ -87,11 +87,10 @@ DESCRIBE endereco_petshop;
 /*CRIAÇÃO DA TABELA SERVIÇO*/
 CREATE TABLE servico(
 	id_servico INT PRIMARY KEY AUTO_INCREMENT,
-    tipo_servico VARCHAR(30) NOT NULL,
+    tipo_servico VARCHAR(50) NOT NULL,
     data_hora DATETIME NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
-    observacoes TEXT,
-    status VARCHAR(20)
+    observacoes TEXT
 );
 /*CRIAÇÃO DA COLUNA PARA GUARDAR PRIMARY KEY DE PETSHOP*/
 ALTER TABLE servico ADD COLUMN id_petshop INT;

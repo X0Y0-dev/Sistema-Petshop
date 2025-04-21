@@ -85,16 +85,30 @@ router.post("/pet", async (req, res) => {
 //SERVIÇO
 router.post("/servico", async (req, res) => {
     try {
-        const { id_servico, tipo_servico, data_hora, valor, observacoes } = req.body;
-    } catch (error) {
-        console.error("Erro detalhado:", error);
-        res.status(500).json({
-            success: false,
-            error: error.message,
-            stack: error.stack
+        const { tipo_servico, data_hora, valor, observacoes, id_petshop } = req.body;
+        console.log("Dados recebidos no serviço:", req.body);
+
+        const [result] = await db.execute(
+            `INSERT INTO servico (tipo_servico, data_hora, valor, observacoes, id_petshop)
+             VALUES (?, ?, ?, ?, ?)`,
+            [tipo_servico, data_hora, valor, observacoes, id_petshop]
+        );
+
+        res.json({
+            success: true,
+            id_servico: result.insertId,
+            tipo_servico,
+            data_hora,
+            valor,
+            observacoes,
+            id_petshop
         });
+    } catch (error) {
+        console.error("Erro ao criar serviço:", error);
+        res.status(500).json({ success: false, error: error.message });
     }
 });
+
 
 //LOGIN
 router.post("/cliente/login", async (req, res) => {

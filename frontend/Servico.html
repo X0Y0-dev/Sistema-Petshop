@@ -31,29 +31,29 @@
                 <form id="form-servico">
                     <fieldset class="opcao-agendar">
                         <legend class="titulo-servico">Serviços disponíveis</legend>
-                        <label><input class="descri-servico" type="radio" name="servico" value="Banho - R$100,00 - 2 horas"> Banho - R$100,00 (2h)</label><br>
-                        <label><input class="descri-servico" type="radio" name="servico" value="Tosa - R$150,00 - 3 horas"> Tosa - R$150,00 (3h)</label><br>
-                        <label><input class="descri-servico" type="radio" name="servico" value="Banho e Tosa - R$230,00 - 4 horas"> Banho e Tosa - R$230,00 (4h)</label><br>
-                        <label><input class="descri-servico" type="radio" name="servico" value="Tratamento - R$150,00 - 3 horas"> Tratamento - R$150,00 (3h)</label><br>
-                        <label><input class="descri-servico" type="radio" name="servico" value="Castração - R$180,00 - 4 horas"> Castração - R$180,00 (4h)</label><br>
-                        <label><input class="descri-servico" type="radio" name="servico" value="Vacinação - R$50,00 - na hora"> Vacinação - R$50,00 (na hora)</label>
+                        <label><input id="banho" class="descri-servico" type="radio" name="servico" value="Banho - R$100,00 - 2 horas"> Banho - R$100,00 (2h)</label><br>
+                        <label><input id="tosa" class="descri-servico" type="radio" name="servico" value="Tosa - R$150,00 - 3 horas"> Tosa - R$150,00 (3h)</label><br>
+                        <label><input id="banho-tosa" class="descri-servico" type="radio" name="servico" value="Banho e Tosa - R$230,00 - 4 horas"> Banho e Tosa - R$230,00 (4h)</label><br>
+                        <label><input id="tratamento" class="descri-servico" type="radio" name="servico" value="Tratamento - R$150,00 - 3 horas"> Tratamento - R$150,00 (3h)</label><br>
+                        <label><input id="castracao" class="descri-servico" type="radio" name="servico" value="Castração - R$180,00 - 4 horas"> Castração - R$180,00 (4h)</label><br>
+                        <label><input id="vacina" class="descri-servico" type="radio" name="servico" value="Vacinação - R$50,00 - na hora"> Vacinação - R$50,00 (na hora)</label>
                     </fieldset>
 
                     <h2>Escolha o Dia</h2>
                     <fieldset class="opcao-agendar">
                         <legend class="titulo-servico">Dias disponíveis</legend>
-                        <label><input class="descri-servico" type="radio" name="dia" value="Segunda"> Segunda-feira</label><br>
-                        <label><input class="descri-servico" type="radio" name="dia" value="Terça"> Terça-feira</label><br>
-                        <label><input class="descri-servico" type="radio" name="dia" value="Quarta"> Quarta-feira</label><br>
-                        <label><input class="descri-servico" type="radio" name="dia" value="Quinta"> Quinta-feira</label><br>
-                        <label><input class="descri-servico" type="radio" name="dia" value="Sexta"> Sexta-feira</label>
+                        <label><input id="segunda" class="descri-servico" type="radio" name="dia" value="Segunda"> Segunda-feira</label><br>
+                        <label><input id="terca" class="descri-servico" type="radio" name="dia" value="Terça"> Terça-feira</label><br>
+                        <label><input id="quarta" class="descri-servico" type="radio" name="dia" value="Quarta"> Quarta-feira</label><br>
+                        <label><input id="quinta" class="descri-servico" type="radio" name="dia" value="Quinta"> Quinta-feira</label><br>
+                        <label><input id="sexta" class="descri-servico" type="radio" name="dia" value="Sexta"> Sexta-feira</label>
                     </fieldset>
 
                     <h2>Escolha o Horário</h2>
                     <fieldset class="opcao-agendar">
                         <legend class="titulo-servico">Horários disponíveis</legend>
                         <select class="select-horario" id="horario" name="horario">
-                            <option value="" disabled selected>Selecione o horário</option>
+                            <option id="id-servico" value="" disabled selected>Selecione o horário</option>
                             <!-- Gera os horários automaticamente de 07:00 até 19:00 via JavaScript -->
                         </select>
                     </fieldset>
@@ -63,13 +63,13 @@
             <div class="area-observacoes">
                 <fieldset class="opcao-agendar opcao-agendar-direita">
                     <legend class="titulo-servico">Observações</legend>
-                    <textarea class="campo-observacoes" placeholder="Digite aqui suas observações..."></textarea>
+                    <textarea id="observacoes-servico" class="campo-observacoes" placeholder="Digite aqui suas observações..."></textarea>
                 </fieldset>
             </div>
 
             <div class="servico-botoes">
-                <button type="submit" form="form-servico" class="botao-primario conteudo">Agendar</button>
-                <button type="button" class="botao-primario conteudo" onclick="window.location.href='Agendar.html'">Voltar</button>
+                <button class="botao-primario conteudo" onclick="window.location.href='Agendar.html'">Voltar</button>
+                <button class="botao-primario conteudo" onclick="criarServico(event)">Agendar</button>
             </div>
         </div>
 
@@ -90,6 +90,8 @@
             selectHorario.appendChild(option);
         }
     </script>
+    
+    <script src="../backend/script.js"></script>
 </body>
 
 </html>

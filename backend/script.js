@@ -1,6 +1,7 @@
 const API_CLIENTE = "http://localhost:3000/api/cliente"
 const API_PET = "http://localhost:3000/api/pet"
 const API_UPLOADS = "http://localhost:3000/api/uploads"
+const API_SERVICO = "http://localhost:3000/api/servico";
 let editingId = null
 
 
@@ -427,6 +428,80 @@ async function criarPet(event) {
         window.location.href = "./Servico.html"; // ou "/Servico.html"
     } else {
         alert("Algo deu errado ao salvar o pet.");
+    }
+}
+
+// Função para validar os dados do serviço 
+function validarServico() {
+    const tipo_servico = document.querySelector('input[name="servico"]:checked')?.value;
+    const dia = document.querySelector('input[name="dia"]:checked')?.value;
+    const horario = document.getElementById("horario")?.value;
+    const observacoes = document.getElementById("observacoes-servico")?.value || "";
+
+    if (!tipo_servico || !dia || !horario) {
+        alert("Por favor, selecione o serviço, o dia e o horário.");
+        return null;
+    }
+
+    const diasSemana = { "Segunda": 1, "Terça": 2, "Quarta": 3, "Quinta": 4, "Sexta": 5 };
+    const hoje = new Date();
+    const hojeDia = hoje.getDay();
+
+    let diasParaSomar = (diasSemana[dia] + 7 - (hojeDia === 0 ? 7 : hojeDia)) % 7;
+    if (diasParaSomar === 0) diasParaSomar = 7;
+
+    const dataSelecionada = new Date();
+    dataSelecionada.setDate(hoje.getDate() + diasParaSomar);
+    const [hora, minuto] = horario.split(":");
+    dataSelecionada.setHours(hora, minuto);
+
+    const data_hora = dataSelecionada.toISOString().slice(0, 19).replace("T", " ");
+
+    const valores = {
+        "Banho": 100,
+        "Tosa": 150,
+        "Banho e Tosa": 230,
+        "Tratamento": 150,
+        "Castração": 180,
+        "Vacinação": 50
+    };
+
+    const tipo = tipo_servico.split(" - ")[0];
+
+    return {
+        tipo_servico,
+        data_hora,
+        valor: valores[tipo] || 0,
+        observacoes
+    };
+}
+
+// Função para criar o serviço
+async function criarServico(event) {
+    event.preventDefault();
+
+    const dados = validarServico();
+    if (!dados) return;
+
+    dados.id_petshop = 1;
+
+    try {
+        const res = await fetch(API_SERVICO, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        });
+
+        if (!res.ok) throw new Error("Erro ao registrar serviço");
+
+        const resposta = await res.json();
+        if (resposta.success) {
+            alert("Serviço agendado com sucesso!");
+            window.location.href = "Agendados.html";
+        }
+    } catch (error) {
+        console.error("Erro ao enviar serviço:", error);
+        alert("Erro ao enviar serviço.");
     }
 }
 
